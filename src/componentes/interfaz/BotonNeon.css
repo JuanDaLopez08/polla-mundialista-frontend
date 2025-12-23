@@ -1,0 +1,26 @@
+.btn-neon {
+  background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+  
+  /* CORRECCIÓN DE CONTRASTE: */
+  /* Cambiamos 'white' por el color de fondo oscuro. */
+  /* Esto genera un contraste alto (aprox 12:1) y elimina la alerta. */
+  color: var(--bg-dark); 
+  
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-family: var(--font-heading);
+  font-weight: 800; /* Lo subimos un poco para que sea más legible */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* El resto del archivo sigue igual... */

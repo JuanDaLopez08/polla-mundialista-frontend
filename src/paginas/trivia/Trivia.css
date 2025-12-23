@@ -1,0 +1,216 @@
+/* --- WRAPPER GLOBAL PARA CENTRADO --- */
+.trivia-wrapper {
+    width: 100%;
+    min-height: 85vh; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- CONTENEDOR DEL CONTENIDO --- */
+.trivia-content {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Rajdhani', sans-serif;
+    color: white;
+}
+
+.juego-area {
+    width: 100%; 
+}
+
+.progreso-texto {
+    text-align: right; 
+    color: #00f2ff; 
+    font-weight: 700; 
+    margin-bottom: 10px;
+    font-size: 1.1rem; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+}
+
+.pregunta-card {
+    background: rgba(15, 23, 42, 0.95); 
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    border-radius: 24px; 
+    padding: 40px; 
+    position: relative; /* IMPORTANTE: Para que el overlay se centre aquí */
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.texto-pregunta {
+    font-size: 1.8rem; 
+    text-align: center; 
+    margin-bottom: 40px;
+    color: white; 
+    font-weight: 800; 
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.opciones-grid {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+}
+
+.btn-opcion {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; 
+    padding: 20px; 
+    border-radius: 12px;
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    cursor: pointer;
+    transition: all 0.2s; 
+    font-family: 'Rajdhani', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-opcion:hover:not(:disabled) {
+    background: rgba(0, 242, 255, 0.1);
+    border-color: #00f2ff; 
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* ESTADOS DE RESPUESTA */
+.btn-verde, .btn-verde:disabled {
+    background: #10b981 !important; 
+    color: white; 
+    border-color: #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.btn-verde-falso:disabled {
+    background: rgba(16, 185, 129, 0.15) !important; 
+    border-color: #10b981; 
+    color: #10b981;
+    opacity: 1;
+}
+
+.btn-rojo-dim:disabled {
+    opacity: 0.4;
+    border-color: #ef4444;
+}
+
+/* --- FEEDBACK OVERLAY (CENTRADO DENTRO DE LA CARD) --- */
+.feedback-overlay {
+    position: absolute; /* Relativo a la card */
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    
+    width: 95%; 
+    height: 90%; 
+    
+    background: rgba(15, 23, 42, 0.98); 
+    border: 3px solid; 
+    padding: 20px; 
+    border-radius: 20px;
+    text-align: center; 
+    z-index: 50; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    box-shadow: 0 0 50px rgba(0,0,0,0.9); 
+    backdrop-filter: blur(10px); 
+}
+
+.feedback-overlay.correcto { border-color: #10b981; }
+.feedback-overlay.incorrecto { border-color: #ef4444; }
+
+.icon-feedback {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.feedback-overlay h3 {
+    font-size: 2.5rem; 
+    margin: 10px 0; 
+    font-weight: 900; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.feedback-overlay.correcto h3 { color: #10b981; text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+.feedback-overlay.incorrecto h3 { color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+
+.feedback-overlay p { 
+    font-size: 1.4rem; 
+    color: #e2e8f0; 
+    font-weight: 600; 
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* --- PANTALLA FINAL --- */
+.resultado-final {
+    text-align: center; 
+    background: rgba(15, 23, 42, 0.9);
+    padding: 50px; 
+    border-radius: 24px; 
+    border: 2px solid #00f2ff;
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.2);
+    width: 100%;
+    max-width: 600px;
+}
+
+.resultado-final h2 { 
+    color: #00f2ff; 
+    margin-bottom: 20px; 
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.score-gigante {
+    font-size: 6rem; 
+    font-weight: 900; 
+    color: white;
+    text-shadow: 0 0 30px rgba(255,255,255,0.6); 
+    margin: 10px 0 30px 0;
+    line-height: 1;
+}
+.de-10 { font-size: 2.5rem; color: #64748b; }
+
+.mensaje-final { 
+    font-size: 1.5rem; 
+    margin-bottom: 40px; 
+    color: #cbd5e1; 
+    font-weight: 600;
+}
+
+/* Animaciones */
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.animate-zoom-in { animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes zoomIn { from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .trivia-wrapper { padding: 10px; align-items: flex-start; padding-top: 20px; }
+    .opciones-grid { grid-template-columns: 1fr; } 
+    .texto-pregunta { font-size: 1.4rem; margin-bottom: 20px; }
+    .score-gigante { font-size: 4.5rem; }
+    .pregunta-card { padding: 25px; }
+    .feedback-overlay h3 { font-size: 1.8rem; }
+    .feedback-overlay p { font-size: 1.1rem; }
+}

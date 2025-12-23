@@ -1,0 +1,19 @@
+:root {
+  /* --- COLORES NEÓN (Más vibrantes) --- */
+  --neon-cyan: #00f3ff;   /* Cian más eléctrico */
+  --neon-purple: #bc13fe; /* Morado más intenso */
+  --neon-red: #ff003c;
+  
+  /* --- FONDOS --- */
+  --bg-dark: #050505;     /* Casi negro puro */
+  --bg-card: rgba(10, 10, 15, 0.75); /* Cristal más oscuro y elegante */
+  
+  /* --- TIPOGRAFÍA (Aquí estaba el problema) --- */
+  --font-heading: 'Rajdhani', sans-serif; /* Títulos cuadrados/técnicos */
+  --font-body: 'Inter', sans-serif;       /* Texto muy legible */
+  
+  /* --- EFECTOS --- */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --glass-shine: 1px solid rgba(255, 255, 255, 0.15);
+  --backdrop-blur: blur(12px); /* Más borroso para que se lea mejor */
+}

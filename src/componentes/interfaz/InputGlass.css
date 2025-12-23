@@ -1,0 +1,54 @@
+.grupo-input-glass {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.label-glass {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.input-glass {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.3);
+  border: var(--glass-border);
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-glass:focus {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1);
+  transform: translateY(-2px);
+}
+
+.input-glass::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* Estado de Error */
+.input-error {
+  border-color: var(--neon-red);
+}
+
+.input-error:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.texto-error {
+  color: var(--neon-red);
+  font-size: 0.8rem;
+  margin-left: 4px;
+  font-weight: 500;
+}

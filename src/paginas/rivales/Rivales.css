@@ -1,0 +1,155 @@
+.rivales-wrapper {
+    max-width: 1600px; margin: 0 auto; padding: 20px;
+    color: white; font-family: 'Rajdhani', sans-serif; min-height: 95vh;
+}
+
+/* --- SECTION CARDS --- */
+.section-cards { margin-bottom: 30px; }
+.grid-rivales-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 10px 5px 25px 5px; scrollbar-width: thin; scrollbar-color: #00f2ff #0f172a; }
+
+.card-mini-rival {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.1); min-width: 260px; border-radius: 16px; padding: 20px;
+    display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+}
+.card-mini-rival:hover { transform: translateY(-5px); border-color: #ff0055; box-shadow: 0 10px 25px rgba(255, 0, 85, 0.2); }
+.card-mini-rival::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent); transition: 0.5s; }
+.card-mini-rival:hover::before { left: 100%; }
+
+.mini-avatar { width: 60px; height: 60px; background: #ff0055; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); border: 2px solid rgba(255,255,255,0.1); }
+.mini-info { flex: 1; display: flex; flex-direction: column; margin-left: 15px; }
+.mini-name { font-size: 1.1rem; font-weight: 800; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+.mini-pts { font-size: 0.85rem; color: #94a3b8; font-weight: 600; letter-spacing: 1px; }
+.mini-vs-btn { color: #ff0055; background: rgba(255, 0, 85, 0.1); padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.card-mini-rival:hover .mini-vs-btn { background: #ff0055; color: white; box-shadow: 0 0 10px #ff0055; }
+
+.divider-neon { border: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.3), transparent); margin: 30px 0; }
+
+/* --- TABLE SECTION --- */
+.section-table { margin-bottom: 50px; }
+.table-header-control { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px; }
+.table-section-title { color: #00f2ff; font-size: 1.5rem; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+
+/* Filtros Compartidos */
+.filters-bar-general { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; background: transparent; }
+.neon-select-container { position: relative; flex: 1; min-width: 200px; font-family: 'Rajdhani', sans-serif; }
+.neon-select-trigger { background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 8px; height: 40px; padding: 0 15px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.3s ease; color: #94a3b8; }
+.neon-select-trigger:hover, .neon-select-trigger.active { border-color: #00f2ff; box-shadow: 0 0 10px rgba(0, 242, 255, 0.15); background: rgba(15, 23, 42, 1); color: white; }
+.neon-select-trigger.has-value { border-color: #00f2ff; color: #00f2ff; background: rgba(0, 242, 255, 0.05); }
+.trigger-content { display: flex; align-items: center; gap: 10px; overflow: hidden; }
+.trigger-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; font-size: 0.85rem; }
+.trigger-actions { display: flex; align-items: center; gap: 5px; }
+.neon-dropdown-menu { position: absolute; top: 110%; left: 0; width: 100%; max-height: 250px; overflow-y: auto; background: #0f172a; border: 1px solid #00f2ff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); z-index: 100; padding: 5px; }
+.neon-option { padding: 8px 12px; color: #e2e8f0; font-size: 0.85rem; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
+.neon-option:hover { background: rgba(0, 242, 255, 0.15); color: #00f2ff; }
+.neon-option.selected { background: rgba(0, 242, 255, 0.2); color: #00f2ff; font-weight: 700; }
+.btn-reset-filters { background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 8px; padding: 0 15px; height: 40px; font-weight: 700; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; transition: all 0.3s; }
+.btn-reset-filters:hover { background: rgba(239, 68, 68, 0.15); }
+
+/* Selector Add User */
+.user-selector-area { position: relative; }
+.custom-dropdown { position: relative; width: 250px; }
+.select-add-user { width: 100%; background: #0f172a; color: #00f2ff; border: 1px solid #00f2ff; padding: 10px 15px; border-radius: 8px; appearance: none; cursor: pointer; font-weight: 700; }
+.select-add-user:focus { outline: none; box-shadow: 0 0 10px rgba(0, 242, 255, 0.3); }
+.plus-icon { position: absolute; right: 10px; top: 12px; color: #00f2ff; pointer-events: none; }
+.limit-reached-msg { color: #ef4444; font-size: 0.8rem; font-weight: 700; }
+
+/* Tabla */
+.table-responsive-container { overflow: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: #0f172a; max-height: 70vh; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
+.general-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.general-table thead th { position: sticky; top: 0; z-index: 20; background: #1e293b; padding: 15px; border-bottom: 2px solid #334155; color: #94a3b8; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+.th-sticky-match { position: sticky !important; top: 0; left: 0; z-index: 50 !important; background: #1e293b !important; border-right: 2px solid #334155; border-bottom: 2px solid #334155; min-width: 180px; max-width: 180px; }
+.td-sticky-match { position: sticky !important; left: 0; z-index: 30; background: #0f172a; border-right: 2px solid #334155; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px; min-width: 180px; max-width: 180px; }
+
+.header-match-title { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; text-align: center; }
+.subtitle-real { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.6rem; font-weight: 800; color: #fbbf24; background: rgba(251, 191, 36, 0.15); padding: 3px 8px; border-radius: 12px; letter-spacing: 0.5px; border: 1px solid rgba(251, 191, 36, 0.3); }
+
+@media (max-width: 768px) { .th-sticky-match, .td-sticky-match { min-width: 130px; max-width: 130px; padding: 10px 5px; } .match-teams img { width: 18px; height: 18px; } .m-vs { font-size: 0.6rem; } .m-score { font-size: 0.8rem; } .subtitle-real { font-size: 0.55rem; } }
+
+.match-cell-info { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.match-teams { display: flex; align-items: center; gap: 5px; }
+.match-teams img { width: 22px; height: 22px; object-fit: contain;}
+.m-vs { font-size: 0.7rem; color: #64748b; }
+.match-result-box { display: flex; flex-direction: column; align-items: center; }
+.m-score { color: white; font-weight: 800; font-size: 0.9rem; }
+.m-penales { color: #fbbf24; font-size: 0.65rem; white-space: nowrap; margin-top: 2px; }
+.m-pending { color: #475569; font-style: italic; font-size: 0.75rem; }
+
+.td-pred { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px; vertical-align: middle; min-width: 100px; }
+.td-me-bg { background: rgba(0, 242, 255, 0.03); }
+
+.th-user-header { display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 100px; position: relative; }
+.th-info { display: flex; flex-direction: column; align-items: center; }
+.th-name { font-size: 0.9rem; font-weight: 700; color: white; }
+.th-pts { font-size: 0.7rem; color: #94a3b8; }
+.th-me .th-name { color: #00f2ff; }
+
+.btn-remove-col { background: rgba(239, 68, 68, 0.2); border: none; color: #ef4444; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: absolute; right: -5px; top: -5px; }
+.btn-remove-col:hover { background: #ef4444; color: white; }
+
+.cell-content { display: flex; flex-direction: column; align-items: center; }
+.cell-score { color: #cbd5e1; font-weight: 600; }
+.cell-pts { background: #10b981; color: #022c22; font-size: 0.65rem; padding: 1px 4px; border-radius: 4px; font-weight: 800; margin-top: 3px; }
+.cell-win .cell-score { color: #10b981; font-weight: 800; }
+.cell-empty { color: #334155; }
+.empty-msg { padding: 30px; text-align: center; color: #64748b; font-style: italic; }
+
+/* ===========================================================
+   SECCIÓN 3: VS ARENA (REMASTERIZADO)
+   =========================================================== */
+.vs-arena-view { max-width: 900px; margin: 0 auto; }
+.btn-back-dashboard { background: transparent; border: 1px solid #64748b; color: #94a3b8; padding: 8px 20px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 20px; transition: all 0.2s; }
+.btn-back-dashboard:hover { border-color: white; color: white; }
+
+.vs-header-fight { display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 40px; }
+.fighter { display: flex; flex-direction: column; align-items: center; }
+.f-avatar-big { width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; border: 4px solid white; background: #00f2ff; color: black; box-shadow: 0 0 20px #00f2ff; }
+.enemy-color { background: #ff0055 !important; color: white !important; border-color: #ff0055 !important; box-shadow: 0 0 20px #ff0055 !important; }
+.f-name-big { font-weight: 800; font-size: 1.2rem; margin-top: 10px; color: #00f2ff; }
+.enemy-text { color: #ff0055 !important; }
+.f-pts-big { color: #cbd5e1; }
+
+.vs-logo-animado { font-size: 4rem; font-weight: 900; font-style: italic; color: white; text-shadow: 4px 4px 0 #ff0055; animation: bounceVs 1.5s infinite ease-in-out; }
+@keyframes bounceVs { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15) rotate(-3deg); } }
+
+/* Filtros dentro del VS */
+.vs-filters-container { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+
+.vs-list-fight { display: flex; flex-direction: column; gap: 15px; }
+.vs-fight-row { display: flex; justify-content: space-between; align-items: center; background: transparent; margin-bottom: 10px; padding: 0 10px; }
+
+/* ESTILO DE TARJETAS DE PREDICCIÓN (IDENTITY BACK) */
+.side-pred { 
+    background: #0f172a; 
+    border: 2px solid #1e293b; 
+    border-radius: 14px; 
+    width: 140px; height: 90px; /* Más grandes */
+    display: flex; flex-direction: column; align-items: center; justify-content: center; 
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s;
+}
+
+/* Colores de Borde Constantes (Identidad) */
+.me-side { border-color: rgba(0, 242, 255, 0.5); }
+.enemy-side { border-color: rgba(255, 0, 85, 0.5); }
+
+/* Glow al ganar */
+.win-glow { background: rgba(0, 242, 255, 0.15); border-color: #00f2ff; box-shadow: 0 0 25px rgba(0, 242, 255, 0.4); }
+.win-glow-enemy { background: rgba(255, 0, 85, 0.15); border-color: #ff0055; box-shadow: 0 0 25px rgba(255, 0, 85, 0.4); }
+
+.pred-label { font-size: 0.65rem; text-transform: uppercase; color: #64748b; margin-bottom: 4px; font-weight: 700; }
+.pred-big { font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: 1px; }
+
+.pts-badge { position: absolute; top: -10px; right: -5px; background: #00f2ff; color: black; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 900; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+.enemy-badge { background: #ff0055; color: white; left: -5px; right: auto; }
+
+.center-fight-info { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.fight-flags { display: flex; gap: 15px; align-items: center; margin-bottom: 8px; }
+.fight-flags img { width: 55px; height: 38px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.6); }
+.fight-vs { font-size: 1.1rem; color: #64748b; font-weight: 900; font-style: italic; }
+.fight-result-container { display: flex; flex-direction: column; align-items: center; }
+.fight-score-real { font-size: 1.2rem; font-weight: 900; color: #e2e8f0; letter-spacing: 2px; }
+.fight-penales-text { color: #fbbf24; font-size: 0.75rem; font-weight: 700; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.fight-pending { font-size: 0.9rem; color: #475569; font-style: italic; }

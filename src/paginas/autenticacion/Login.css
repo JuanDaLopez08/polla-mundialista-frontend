@@ -1,0 +1,95 @@
+.formulario-login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+}
+
+.encabezado-movil {
+  display: none;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.encabezado-movil h3 {
+  font-size: 1.8rem;
+  /* FIX CONTRASTE: Usamos blanco puro para garantizar lectura sobre fondo oscuro */
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.alerta-error {
+  background: rgba(239, 68, 68, 0.15); /* Un poco más de fondo para separar */
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  
+  /* FIX CONTRASTE: Cambiamos de #fca5a5 a un rojo casi blanco (#ffe4e6) */
+  /* Esto asegura que pase el ratio AA de WCAG sobre fondo oscuro */
+  color: #ffe4e6; 
+  
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.acciones-form {
+  margin-top: 10px;
+}
+
+.pie-form {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.95rem;
+  
+  /* FIX CONTRASTE: Aclaramos el gris. De var(--text-muted) a #cbd5e1 (Slate-300) */
+  color: #cbd5e1; 
+  
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.enlace-neon {
+  color: var(--neon-cyan);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.enlace-neon:hover {
+  color: var(--neon-purple);
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+@media (max-width: 960px) {
+  .encabezado-movil {
+    display: block;
+  }
+}
+
+/* Alerta Verde de Éxito */
+.alerta-exito {
+  background: rgba(16, 185, 129, 0.2); /* Verde transparente */
+  border: 1px solid #10b981;           /* Borde verde solido */
+  color: #6ee7b7;                      /* Texto verde claro */
+  
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  
+  /* Animación suave de aparición */
+  animation: fadeIn 0.5s ease-in-out;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

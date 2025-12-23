@@ -1,0 +1,64 @@
+.formulario-registro {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px; /* Espacio entre filas */
+}
+
+.encabezado-form {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.encabezado-form h3 {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.encabezado-form p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* --- GRID PARA AHORRAR ESPACIO --- */
+/* Esto pone dos inputs en la misma línea */
+.fila-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Ajustes Responsive para el Grid */
+@media (max-width: 500px) {
+  .fila-grid {
+    grid-template-columns: 1fr; /* En móvil, uno debajo del otro */
+    gap: 12px;
+  }
+}
+
+/* Reutilizamos estilos del Login para consistencia */
+.alerta-error {
+  background: rgba(127, 29, 29, 0.4);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.pie-form {
+  margin-top: 15px; /* Menos margen que en login porque hay más inputs */
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}

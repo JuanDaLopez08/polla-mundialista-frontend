@@ -1,0 +1,167 @@
+.reglas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 90vh;
+}
+
+.reglas-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.reglas-subtitle {
+    color: #94a3b8;
+    font-size: 1.2rem;
+    margin-top: -20px;
+}
+
+/* --- SECCIONES --- */
+.reglas-section {
+    margin-bottom: 60px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.section-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 1.8rem;
+    color: #00f2ff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+    padding-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+.text-pink { color: #ff0055; border-color: rgba(255, 0, 85, 0.2); text-shadow: 0 0 10px rgba(255, 0, 85, 0.3); }
+
+/* --- GRID DE PUNTOS --- */
+.puntos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.card-punto {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-punto:hover {
+    transform: translateY(-5px);
+}
+
+/* Colores Específicos */
+.exacto { border-color: #00f2ff; box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); }
+.exacto .punto-icon, .exacto .punto-valor { color: #00f2ff; }
+
+.ganador { border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.1); }
+.ganador .punto-icon, .ganador .punto-valor { color: #a855f7; }
+
+.invertido { border-color: #f43f5e; }
+.invertido .punto-icon, .invertido .punto-valor { color: #f43f5e; }
+
+.clasificado { border-color: #10b981; }
+.clasificado .punto-icon, .clasificado .punto-valor { color: #10b981; }
+
+.palo { border-color: #ec4899; }
+.palo .punto-icon, .palo .punto-valor { color: #ec4899; }
+
+/* NUEVO: ESTILO PARA GOLEADOR */
+.goleador { border-color: #f97316; } /* Naranja */
+.goleador .punto-icon, .goleador .punto-valor { color: #f97316; }
+
+.campeon { border-color: #fbbf24; background: radial-gradient(circle at center, rgba(251, 191, 36, 0.05), transparent); }
+.campeon .punto-icon, .campeon .punto-valor { color: #fbbf24; }
+
+/* Contenido Card */
+.punto-icon { margin-bottom: 10px; }
+.punto-valor { font-size: 2.5rem; font-weight: 900; line-height: 1; margin-bottom: 5px; }
+.punto-valor span { font-size: 1rem; font-weight: 600; opacity: 0.8; }
+
+.punto-titulo { font-size: 1.1rem; font-weight: 800; color: white; margin-bottom: 8px; text-transform: uppercase; }
+.punto-desc { font-size: 0.95rem; color: #94a3b8; margin-bottom: 15px; flex: 1; }
+
+.ejemplo-mini {
+    background: rgba(255,255,255,0.05);
+    padding: 6px 12px; border-radius: 6px;
+    font-size: 0.8rem; color: #e2e8f0; font-family: monospace;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* --- SECCIÓN DESEMPATE (STEPS) --- */
+.desempate-container { max-width: 900px; margin: 0 auto; }
+.desempate-intro { text-align: center; color: #cbd5e1; margin-bottom: 40px; font-size: 1.1rem; }
+
+.steps-wrapper {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative;
+}
+
+.step-item {
+    display: flex; align-items: flex-start; gap: 20px;
+    position: relative; z-index: 2;
+}
+
+.step-number {
+    background: #0f172a;
+    border: 2px solid #ff0055;
+    color: #ff0055;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight: 900;
+    flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+}
+
+.step-content {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 0, 85, 0.2);
+    padding: 20px 25px;
+    border-radius: 12px;
+    flex: 1;
+    transition: all 0.3s;
+}
+
+.step-item:hover .step-content {
+    border-color: #ff0055;
+    background: rgba(255, 0, 85, 0.05);
+    transform: translateX(5px);
+}
+
+.step-content h4 { margin: 0 0 8px 0; color: white; font-size: 1.2rem; text-transform: uppercase; font-weight: 800; }
+.step-content p { margin: 0; color: #94a3b8; font-size: 1rem; }
+
+/* Línea conectora vertical */
+.step-line {
+    width: 2px; height: 30px;
+    background: rgba(255, 0, 85, 0.3);
+    margin-left: 24px; /* Mitad de 50px (ancho del círculo) - 1px */
+    z-index: 1;
+}
+
+/* Animación de entrada */
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .puntos-grid { grid-template-columns: 1fr; }
+    .step-item { gap: 15px; }
+    .step-number { width: 40px; height: 40px; font-size: 1.2rem; }
+    .step-line { margin-left: 19px; }
+    .step-content { padding: 15px; }
+}

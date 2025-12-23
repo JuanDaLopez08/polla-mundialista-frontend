@@ -1,0 +1,216 @@
+.panel-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  color: white;
+  padding-bottom: 40px;
+}
+
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- HEADER --- */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  /* Eliminamos el borde de abajo para que se vea más limpio */
+  padding-bottom: 10px;
+}
+
+.saludo { 
+  font-family: var(--font-heading); 
+  font-size: 2.2rem; 
+  margin: 0; 
+  letter-spacing: -1px;
+}
+
+.usuario-highlight { 
+  color: #00f2ff; 
+  text-shadow: 0 0 15px rgba(0,242,255,0.4); 
+}
+
+.subtitulo { 
+  color: #94a3b8; 
+  margin: 5px 0 0 0; 
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* --- BOTÓN NEÓN (ADIOS BLANCO) --- */
+.btn-cta-neon {
+  /* Fondo Gradiente: De Cian a Azul */
+  background: linear-gradient(90deg, #00f2ff 0%, #00a8ff 100%);
+  color: #000; /* Texto negro para contraste máximo sobre cian */
+  font-weight: 800; /* Letra gorda */
+  padding: 12px 28px;
+  border-radius: 8px; /* Un poco más cuadrado, más tech */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); /* Resplandor inicial */
+}
+
+.btn-cta-neon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 242, 255, 0.7); /* Resplandor fuerte al hover */
+  background: linear-gradient(90deg, #fff 0%, #00f2ff 100%); /* Efecto flash */
+}
+
+/* --- RELOJ HYPE --- */
+.hero-countdown {
+  background: radial-gradient(circle at center, rgba(20, 20, 30, 0.9), rgba(0,0,0,0.8));
+  border: 1px solid rgba(0, 242, 255, 0.15); /* Borde sutil cian */
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Luz ambiental detrás del reloj */
+.hero-countdown::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.countdown-header {
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  color: #00f2ff; margin-bottom: 25px;
+}
+.countdown-header h3 { 
+  margin: 0; 
+  letter-spacing: 3px; 
+  font-size: 0.8rem; 
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Grid del reloj */
+.timer-display {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alineados arriba */
+  gap: 15px;
+}
+
+.timer-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+}
+
+.time-val {
+  font-family: var(--font-heading);
+  font-size: 4rem; /* ¡ENORME! */
+  line-height: 1;
+  color: white;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+  font-variant-numeric: tabular-nums; /* Evita que salten los números */
+}
+
+/* Efecto especial para los segundos */
+.seconds-glow {
+  color: #00f2ff;
+  text-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+  animation: pulseSeconds 1s infinite alternate;
+}
+
+@keyframes pulseSeconds {
+  from { opacity: 1; text-shadow: 0 0 20px rgba(0, 242, 255, 0.6); }
+  to { opacity: 0.8; text-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+}
+
+.time-label {
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.timer-sep {
+  font-size: 3rem;
+  color: rgba(255,255,255,0.1);
+  margin-top: -5px;
+}
+
+/* --- GRID Y TARJETAS (Mismo de antes, solo ajustes menores) --- */
+.dashboard-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
+}
+
+.column-stack { display: flex; flex-direction: column; gap: 20px; }
+
+.stat-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex; align-items: center; gap: 20px;
+  transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateX(5px); background: rgba(255,255,255,0.06); }
+
+.stat-icon-bg {
+  width: 50px; height: 50px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.stat-icon-bg.morado { background: rgba(189,0,255,0.15); box-shadow: 0 0 15px rgba(189,0,255,0.1); }
+.stat-icon-bg.cian { background: rgba(0,242,255,0.15); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
+.stat-icon-bg.verde { background: rgba(16,185,129,0.15); box-shadow: 0 0 15px rgba(16,185,129,0.1); }
+
+.stat-info { display: flex; flex-direction: column; }
+.stat-label { color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+.stat-value { font-size: 1.8rem; margin: 0; color: white; font-weight: 700; font-family: var(--font-heading); }
+
+/* Especiales */
+.card-especial {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 20px;
+}
+.header-card {
+  display: flex; align-items: center; gap: 8px; color: #00f2ff;
+  font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px;
+}
+
+/* Palo */
+.palo-card {
+  background: linear-gradient(135deg, rgba(20,20,30,0.8), rgba(189,0,255,0.05));
+  border-color: rgba(189,0,255,0.2); text-align: center;
+}
+.bandera-grande { width: 80px; height: auto; border-radius: 6px; box-shadow: 0 0 20px rgba(0,0,0,0.5); margin-bottom: 10px; }
+.contenido-palo h3 { margin: 0; font-size: 1.4rem; color: white; font-family: var(--font-heading); }
+
+/* VIP List */
+.item-vip {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.item-vip:last-child { border-bottom: none; }
+.label-vip { color: #94a3b8; font-size: 0.9rem; }
+.valor-vip { display: flex; align-items: center; gap: 8px; color: white; font-weight: 600; }
+.bandera-mini { width: 24px; border-radius: 3px; }
+.dim { opacity: 0.3; }
+
+/* Responsive móvil */
+@media (max-width: 768px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .timer-display { gap: 5px; }
+  .time-val { font-size: 2rem; }
+  .timer-sep { font-size: 1.5rem; }
+  .panel-header { flex-direction: column; gap: 20px; align-items: stretch; text-align: center; }
+  .btn-cta-neon { justify-content: center; }
+}
