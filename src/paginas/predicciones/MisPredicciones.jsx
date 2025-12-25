@@ -297,7 +297,7 @@ const MisPredicciones = () => {
       </div>
 
       <div className="page-header">
-        <h1>Centro de Predicciones</h1>
+        <h1 className="titulo-neon">Centro de Predicciones</h1>
         <div className="tabs-scroll-container"> 
             <div className="tabs-container">
                 {FASES.map(fase => (

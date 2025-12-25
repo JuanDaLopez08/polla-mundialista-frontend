@@ -5,7 +5,7 @@
 
 /* --- SECTION CARDS --- */
 .section-cards { margin-bottom: 30px; }
-.grid-rivales-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 10px 5px 25px 5px; scrollbar-width: thin; scrollbar-color: #00f2ff #0f172a; }
+.grid-rivales-scroll { display: flex; gap: 20px; overflow-x: auto; padding: 10px 5px 25px 5px;  }
 
 .card-mini-rival {
     background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));

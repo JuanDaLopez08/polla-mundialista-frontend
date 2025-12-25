@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { 
-  LayoutDashboard, Ticket, Globe, Trophy, Swords, BookOpen, LogOut, X, BrainCircuit, // Iconos Usuario
+  LayoutDashboard, Gamepad2, Globe, Trophy, Swords, BookOpen, LogOut, X, BrainCircuit, // Iconos Usuario
   ClipboardList, Shirt, Gavel, Settings, Users // ✅ Iconos Admin (Users reintegrado)
 } from 'lucide-react';
 import { useAutenticacion } from '../../hooks/useAutenticacion';
@@ -27,15 +27,15 @@ const Sidebar = ({ estaAbierto, alCerrar }) => {
   };
 
   // --- MENÚ JUGADOR ---
-  const menuUsuario = [
-    { texto: 'Inicio', ruta: '/panel', icono: <LayoutDashboard size={20} /> },
-    { texto: 'Mis Predicciones', ruta: '/predicciones', icono: <Ticket size={20} /> },
-    { texto: 'Mundial', ruta: '/mundial', icono: <Globe size={20} /> },
-    { texto: 'Ranking', ruta: '/ranking', icono: <Trophy size={20} /> },
-    { texto: 'Rivales', ruta: '/rivales', icono: <Swords size={20} /> },
-    { texto: 'Zona Trivia', ruta: '/trivia', icono: <BrainCircuit size={20} /> },
-    { texto: 'Reglas', ruta: '/reglas', icono: <BookOpen size={20} /> },
-  ];
+ const menuUsuario = [
+    { texto: 'Inicio', ruta: '/panel', icono: <LayoutDashboard size={22} /> }, // Tamaño 22 para que se vea mejor
+    { texto: 'Mis Predicciones', ruta: '/predicciones', icono: <Gamepad2 size={22} /> },
+    { texto: 'Mundial', ruta: '/mundial', icono: <Globe size={22} /> },
+    { texto: 'Ranking', ruta: '/ranking', icono: <Trophy size={22} /> },
+    { texto: 'Rivales', ruta: '/rivales', icono: <Swords size={22} /> },
+    { texto: 'Zona Trivia', ruta: '/trivia', icono: <BrainCircuit size={22} /> },
+    { texto: 'Reglas', ruta: '/reglas', icono: <BookOpen size={22} /> },
+];
 
   // --- MENÚ ADMIN (ESTRUCTURA FINAL) ---
   const menuAdmin = [

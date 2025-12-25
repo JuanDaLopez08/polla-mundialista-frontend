@@ -1,12 +1,19 @@
+/* =========================================
+   PANEL DE CONTROL - FINAL RESPONSIVE 2026
+   ========================================= */
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .panel-container {
-  max-width: 1100px;
+  width: 95%; /* Usamos % para que no toque los bordes en móviles */
+  max-width: 1200px; /* Tope máximo en pantallas grandes */
   margin: 0 auto;
   color: white;
-  padding-bottom: 40px;
+  padding-bottom: 50px;
 }
 
-.animate-fade-in { animation: fadeIn 0.5s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* Animación de entrada suave */
+.animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
 /* --- HEADER --- */
 .panel-header {
@@ -14,15 +21,17 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  /* Eliminamos el borde de abajo para que se vea más limpio */
-  padding-bottom: 10px;
+  padding: 15px 0;
+  flex-wrap: wrap; /* Permite que baje en pantallas pequeñas */
+  gap: 20px;
 }
 
 .saludo { 
   font-family: var(--font-heading); 
-  font-size: 2.2rem; 
+  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Fuente dinámica: escala sola */
   margin: 0; 
   letter-spacing: -1px;
+  line-height: 1.1;
 }
 
 .usuario-highlight { 
@@ -37,37 +46,39 @@
   font-weight: 500;
 }
 
-/* --- BOTÓN NEÓN (ADIOS BLANCO) --- */
-.btn-cta-neon {
-  /* Fondo Gradiente: De Cian a Azul */
-  background: linear-gradient(90deg, #00f2ff 0%, #00a8ff 100%);
-  color: #000; /* Texto negro para contraste máximo sobre cian */
-  font-weight: 800; /* Letra gorda */
-  padding: 12px 28px;
-  border-radius: 8px; /* Un poco más cuadrado, más tech */
+/* --- BOTÓN CIAN --- */
+.btn-cta-panel {
+  background-color: #00f2ff !important; 
+  color: #000 !important; 
+  font-weight: 800;
+  padding: 12px 25px;
+  border-radius: 8px;
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 10px;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   letter-spacing: 1px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); /* Resplandor inicial */
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+  border: none;
+  white-space: nowrap; /* Evita que el texto se parta en dos líneas */
 }
 
-.btn-cta-neon:hover {
+.btn-cta-panel:hover {
+  background-color: #fff !important; 
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(0, 242, 255, 0.7); /* Resplandor fuerte al hover */
-  background: linear-gradient(90deg, #fff 0%, #00f2ff 100%); /* Efecto flash */
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.8);
 }
 
-/* --- RELOJ HYPE --- */
+/* --- RELOJ HYPE (RESPONSIVE) --- */
 .hero-countdown {
   background: radial-gradient(circle at center, rgba(20, 20, 30, 0.9), rgba(0,0,0,0.8));
-  border: 1px solid rgba(0, 242, 255, 0.15); /* Borde sutil cian */
+  border: 1px solid rgba(0, 242, 255, 0.15);
   border-radius: 16px;
-  padding: 40px;
+  padding: 30px;
   text-align: center;
   margin-bottom: 35px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -75,142 +86,303 @@
   overflow: hidden;
 }
 
-/* Luz ambiental detrás del reloj */
 .hero-countdown::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%; width: 200%; height: 200%;
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
   background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .countdown-header {
   display: flex; justify-content: center; align-items: center; gap: 10px;
-  color: #00f2ff; margin-bottom: 25px;
+  color: #00f2ff; margin-bottom: 20px;
 }
 .countdown-header h3 { 
-  margin: 0; 
-  letter-spacing: 3px; 
-  font-size: 0.8rem; 
-  text-transform: uppercase;
-  opacity: 0.8;
+  margin: 0; letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; opacity: 0.8;
 }
 
-/* Grid del reloj */
+/* Grid del Reloj Flexible */
 .timer-display {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Alineados arriba */
-  gap: 15px;
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-start; 
+  gap: 20px;
+  flex-wrap: wrap; /* Clave para pantallas muy muy pequeñas */
 }
 
 .timer-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 90px;
+  display: flex; flex-direction: column; align-items: center; 
+  min-width: 70px; /* Ancho mínimo seguro */
 }
 
+/* Fuente escalable para el reloj */
 .time-val {
   font-family: var(--font-heading);
-  font-size: 4rem; /* ¡ENORME! */
-  line-height: 1;
+  font-size: clamp(2.5rem, 6vw, 4.5rem); /* De 2.5rem a 4.5rem según pantalla */
+  line-height: 1; 
   color: white;
   text-shadow: 0 0 20px rgba(255,255,255,0.2);
-  font-variant-numeric: tabular-nums; /* Evita que salten los números */
+  font-variant-numeric: tabular-nums;
 }
 
-/* Efecto especial para los segundos */
 .seconds-glow {
-  color: #00f2ff;
-  text-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+  color: #00f2ff; text-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
   animation: pulseSeconds 1s infinite alternate;
 }
-
 @keyframes pulseSeconds {
   from { opacity: 1; text-shadow: 0 0 20px rgba(0, 242, 255, 0.6); }
   to { opacity: 0.8; text-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
 }
 
-.time-label {
-  margin-top: 10px;
-  color: #64748b;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
+.time-label { margin-top: 8px; color: #64748b; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; }
+.timer-sep { 
+  font-size: clamp(2rem, 5vw, 3.5rem); 
+  color: rgba(255,255,255,0.1); margin-top: -5px; 
 }
 
-.timer-sep {
-  font-size: 3rem;
-  color: rgba(255,255,255,0.1);
-  margin-top: -5px;
-}
+.estado-vivo { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.punto-rojo-vivo { width: 15px; height: 15px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 15px #ef4444; animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-/* --- GRID Y TARJETAS (Mismo de antes, solo ajustes menores) --- */
+
+/* --- GRID PRINCIPAL (LAYOUT) --- */
 .dashboard-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
+  display: grid; 
+  /* Por defecto (Escritorio): 2 columnas, derecha un poco más ancha */
+  grid-template-columns: 1fr 1.3fr; 
+  gap: 25px;
+  align-items: start;
 }
 
 .column-stack { display: flex; flex-direction: column; gap: 20px; }
 
-.stat-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px;
+
+/* =========================================
+   TARJETAS ESTADÍSTICAS (IZQUIERDA)
+   ========================================= */
+
+.card-reglas {
+  background: #0f172a; 
+  border-radius: 16px;
   padding: 20px;
-  display: flex; align-items: center; gap: 20px;
+  display: flex;
+  align-items: center; 
+  gap: 20px;
+  position: relative;
   transition: transform 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
-.stat-card:hover { transform: translateX(5px); background: rgba(255,255,255,0.06); }
+.card-reglas:hover { transform: translateY(-3px); }
 
-.stat-icon-bg {
-  width: 50px; height: 50px; border-radius: 10px;
+.reglas-icon {
+  width: 55px; height: 55px;
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-}
-.stat-icon-bg.morado { background: rgba(189,0,255,0.15); box-shadow: 0 0 15px rgba(189,0,255,0.1); }
-.stat-icon-bg.cian { background: rgba(0,242,255,0.15); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
-.stat-icon-bg.verde { background: rgba(16,185,129,0.15); box-shadow: 0 0 15px rgba(16,185,129,0.1); }
-
-.stat-info { display: flex; flex-direction: column; }
-.stat-label { color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-.stat-value { font-size: 1.8rem; margin: 0; color: white; font-weight: 700; font-family: var(--font-heading); }
-
-/* Especiales */
-.card-especial {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px; padding: 20px;
-}
-.header-card {
-  display: flex; align-items: center; gap: 8px; color: #00f2ff;
-  font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px;
+  background: rgba(255,255,255,0.03);
+  flex-shrink: 0;
 }
 
-/* Palo */
-.palo-card {
-  background: linear-gradient(135deg, rgba(20,20,30,0.8), rgba(189,0,255,0.05));
-  border-color: rgba(189,0,255,0.2); text-align: center;
-}
-.bandera-grande { width: 80px; height: auto; border-radius: 6px; box-shadow: 0 0 20px rgba(0,0,0,0.5); margin-bottom: 10px; }
-.contenido-palo h3 { margin: 0; font-size: 1.4rem; color: white; font-family: var(--font-heading); }
+.reglas-info { display: flex; flex-direction: column; min-width: 0; /* Evita desbordamiento de texto */ }
 
-/* VIP List */
-.item-vip {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+.reglas-value {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 2px;
+  white-space: nowrap;
 }
-.item-vip:last-child { border-bottom: none; }
-.label-vip { color: #94a3b8; font-size: 0.9rem; }
-.valor-vip { display: flex; align-items: center; gap: 8px; color: white; font-weight: 600; }
-.bandera-mini { width: 24px; border-radius: 3px; }
-.dim { opacity: 0.3; }
 
-/* Responsive móvil */
-@media (max-width: 768px) {
-  .dashboard-grid { grid-template-columns: 1fr; }
-  .timer-display { gap: 5px; }
-  .time-val { font-size: 2rem; }
-  .timer-sep { font-size: 1.5rem; }
-  .panel-header { flex-direction: column; gap: 20px; align-items: stretch; text-align: center; }
-  .btn-cta-neon { justify-content: center; }
+/* Ajuste de tamaño para textos largos como "PECHO FRIO" */
+.status-text-small {
+  font-size: 1.4rem !important; 
+  text-transform: uppercase;
+}
+
+.reglas-label {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: white;
+}
+.reglas-desc { font-size: 0.7rem; color: #64748b; margin: 0; line-height: 1.2; }
+
+/* COLORES TARJETAS */
+.card-neon-purple { border-left: 4px solid #bd00ff; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.card-neon-purple .reglas-value { color: #bd00ff; text-shadow: 0 0 10px rgba(189, 0, 255, 0.4); }
+.card-neon-purple .reglas-icon { color: #bd00ff; background: rgba(189,0,255,0.1); }
+
+.card-neon-cyan { border-left: 4px solid #00f2ff; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.card-neon-cyan .reglas-value { color: #00f2ff; text-shadow: 0 0 10px rgba(0, 242, 255, 0.4); }
+.card-neon-cyan .reglas-icon { color: #00f2ff; background: rgba(0,242,255,0.1); }
+
+.card-neon-green { border-left: 4px solid #10b981; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.card-neon-green .reglas-value { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+.card-neon-green .reglas-icon { color: #10b981; background: rgba(16,185,129,0.1); }
+
+.card-neon-pink { 
+  border-left: 4px solid #ff00ff; box-shadow: 0 4px 20px rgba(255, 0, 255, 0.1); 
+  background: linear-gradient(90deg, rgba(255, 0, 255, 0.05), #0f172a); 
+}
+.card-neon-pink .reglas-value { color: #ff00ff; text-shadow: 0 0 15px rgba(255, 0, 255, 0.6); }
+.card-neon-pink .reglas-icon { color: #ff00ff; background: rgba(255, 0, 255, 0.1); }
+
+
+/* =========================================
+   SUPER TARJETA FAVORITOS (DERECHA)
+   ========================================= */
+
+.super-card-favoritos {
+  /* Fondo + Borde Degradado Completo */
+  background: 
+    radial-gradient(circle at top right, #1e293b, #0f172a) padding-box, 
+    linear-gradient(135deg, #fbbf24, #00f2ff) border-box; 
+  
+  border: 2px solid transparent; 
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.super-header {
+  padding: 15px 25px;
+  background: rgba(0,0,0,0.2);
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-heading); font-weight: 700; color: #fbbf24; 
+  letter-spacing: 1px; font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.super-body {
+  padding: 30px;
+  display: flex;
+  align-items: center; /* Alineación vertical centrada */
+  justify-content: space-between;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Campeón */
+.champ-section { flex: 1.5; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.label-super { font-size: 0.65rem; color: #64748b; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+.champ-display { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+.pais-nombre {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 1.6rem); /* Texto responsivo */
+  color: white; margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;
+  text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.bandera-gigante {
+  width: 80px; max-width: 100%; height: auto;
+  border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  border: 2px solid rgba(255,255,255,0.1); transition: transform 0.3s;
+}
+.bandera-gigante:hover { transform: scale(1.05); }
+
+/* Divisor */
+.divider-vertical {
+  width: 1px; height: 100px; background: rgba(255,255,255,0.1);
+}
+
+/* Goleador */
+.scorer-section { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.scorer-display {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; width: 100%;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.icono-botin { font-size: 2rem; margin-bottom: 5px; filter: drop-shadow(0 0 5px rgba(0,242,255,0.5)); }
+.jugador-nombre { 
+  color: #00f2ff; font-weight: 700; font-size: 1rem; 
+  word-break: break-word; /* Evita que nombres largos rompan el layout */
+}
+.pendiente-text { color: #475569; font-style: italic; font-size: 0.8rem; }
+
+/* Footer Leyenda */
+.super-footer-text {
+  font-size: 0.75rem; color: #94a3b8; font-style: italic; 
+  border-top: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; margin: 0; text-align: center;
+}
+
+
+/* --- PALO CARD --- */
+.palo-card-modern {
+  background: linear-gradient(145deg, rgba(189, 0, 255, 0.08), rgba(15, 23, 42, 0.8));
+  border: 1px solid rgba(189, 0, 255, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 15px;
+}
+
+.palo-header {
+  color: #bd00ff; font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; 
+  display: flex; align-items: center; gap: 8px; text-transform: uppercase;
+}
+
+.palo-content {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+
+.palo-main { display: flex; align-items: center; gap: 15px; }
+.bandera-palo-medium { width: 50px; border-radius: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+.nombre-palo { font-family: var(--font-heading); font-size: 1.4rem; color: white; font-weight: 700; }
+.palo-pendiente { color: #64748b; font-style: italic; font-size: 0.9rem; }
+
+.badge-palo {
+  background: #bd00ff; color: white; padding: 4px 10px; border-radius: 20px;
+  font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 5px;
+  box-shadow: 0 0 10px rgba(189, 0, 255, 0.4); text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.palo-footer-text {
+  font-size: 0.75rem; color: #94a3b8; font-style: italic; 
+  border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; margin: 0;
+}
+
+
+/* =========================================
+   MEDIA QUERIES (ADAPTACIÓN TOTAL)
+   ========================================= */
+
+/* TABLETS Y PANTALLAS MEDIANAS (< 968px) */
+@media (max-width: 968px) {
+  .dashboard-grid { 
+    grid-template-columns: 1fr; /* Colapsa a 1 columna */
+    gap: 30px;
+  }
+  
+  /* En tablets, la columna izquierda (stats) se ve mejor en grid de 2x2 
+     para no hacer una fila india eterna hacia abajo */
+  .column-stack.left-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+}
+
+/* MÓVILES (< 600px) */
+@media (max-width: 600px) {
+  /* Header */
+  .panel-header { flex-direction: column; text-align: center; gap: 20px; }
+  .btn-cta-panel { width: 100%; justify-content: center; }
+
+  /* Reloj Compacto */
+  .hero-countdown { padding: 20px 10px; }
+  .timer-display { gap: 8px; justify-content: space-evenly; }
+  .timer-sep { display: none; /* Oculta los dos puntos para ahorrar espacio */ }
+  .timer-block { min-width: auto; }
+  
+  /* Grid de Stats en móvil vuelve a ser 1 columna */
+  .column-stack.left-col { grid-template-columns: 1fr; }
+
+  /* Ajustes Super Card (Favoritos) */
+  .super-body { flex-direction: column; gap: 25px; text-align: center; }
+  .divider-vertical { width: 100%; height: 1px; margin: 5px 0; }
+  .champ-display, .scorer-display { width: 100%; }
+  
+  /* Ajustes Palo */
+  .palo-content { flex-direction: column; align-items: center; text-align: center; }
+  .palo-main { flex-direction: column; gap: 10px; }
 }

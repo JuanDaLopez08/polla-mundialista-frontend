@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Trophy, TrendingUp, Ticket, ArrowRight, Medal, User, Flag, Clock } from 'lucide-react';
+import { Trophy, TrendingUp, Ticket, ArrowRight, Crown, Goal, Zap, Clock, Dice5 } from 'lucide-react';
 import { useAutenticacion } from '../../hooks/useAutenticacion';
 import { obtenerDatosDashboard } from '../../servicios/dashboardService';
 import './Panel.css';
@@ -15,7 +15,6 @@ const Panel = () => {
   const [tiempo, setTiempo] = useState({ dias: 0, horas: 0, mins: 0, segs: 0 });
   const [yaEmpezo, setYaEmpezo] = useState(false);
 
-  // 1. CARGA DE DATOS
   useEffect(() => {
     const cargarDatos = async () => {
       if (!usuario?.id) return;
@@ -32,14 +31,13 @@ const Panel = () => {
     cargarDatos();
   }, [usuario]);
 
-  // 2. RELOJ LÓGICA
+  // Reloj
   useEffect(() => {
     if (!infoMundial?.fechaInicio) return;
     const objetivo = new Date(infoMundial.fechaInicio).getTime();
     const intervalo = setInterval(() => {
       const ahora = new Date().getTime();
       const distancia = objetivo - ahora;
-
       if (distancia < 0) {
         setYaEmpezo(true);
         clearInterval(intervalo);
@@ -61,132 +59,141 @@ const Panel = () => {
   return (
     <div className="panel-container animate-fade-in">
       
-      {/* HEADER RENOVADO */}
+      {/* HEADER */}
       <header className="panel-header">
-  <div>
-    <h1 className="saludo">Hola, <span className="usuario-highlight">{usuario?.username}</span></h1>
-    {/* Frase motivadora en vez de "resumen" */}
-    <p className="subtitulo">El camino a la gloria comienza aquí. 🏆</p>
-  </div>
-  
-  {/* BOTÓN NEÓN */}
-  <Link to="/predicciones" className="btn-cta-neon">
-    Hacer Predicciones <ArrowRight size={20} strokeWidth={3} />
-  </Link>
-</header>
+        <div>
+          <h1 className="saludo">Hola, <span className="usuario-highlight">{usuario?.username}</span></h1>
+          <p className="subtitulo">El camino a la gloria comienza aquí. 🏆</p>
+        </div>
+        <Link to="/predicciones" className="btn-cta-panel">
+          Hacer Predicciones <ArrowRight size={20} strokeWidth={3} />
+        </Link>
+      </header>
 
-      {/* SECCIÓN RELOJ ÉPICO */}
+      {/* RELOJ */}
       <section className={`hero-countdown ${yaEmpezo ? 'en-curso' : ''}`}>
         {yaEmpezo ? (
-          <div className="estado-vivo">
-            <div className="punto-rojo-vivo"></div>
-            <h2>MUNDIAL EN CURSO</h2>
-          </div>
+          <div className="estado-vivo"><div className="punto-rojo-vivo"></div><h2>MUNDIAL EN CURSO</h2></div>
         ) : (
           <>
-            <div className="countdown-header">
-               <Clock size={16} /> 
-               <h3>FALTA PARA INICIAR</h3>
-            </div>
-            
+            <div className="countdown-header"><Clock size={16} /><h3>FALTA PARA INICIAR</h3></div>
             <div className="timer-display">
-              <div className="timer-block">
-                <span className="time-val">{tiempo.dias}</span>
-                <span className="time-label">DÍAS</span>
-              </div>
+              <div className="timer-block"><span className="time-val">{tiempo.dias}</span><span className="time-label">DÍAS</span></div>
               <span className="timer-sep">:</span>
-              <div className="timer-block">
-                <span className="time-val">{tiempo.horas}</span>
-                <span className="time-label">HRS</span>
-              </div>
+              <div className="timer-block"><span className="time-val">{tiempo.horas}</span><span className="time-label">HRS</span></div>
               <span className="timer-sep">:</span>
-              <div className="timer-block">
-                <span className="time-val">{tiempo.mins}</span>
-                <span className="time-label">MIN</span>
-              </div>
+              <div className="timer-block"><span className="time-val">{tiempo.mins}</span><span className="time-label">MIN</span></div>
               <span className="timer-sep">:</span>
-              <div className="timer-block">
-                {/* Segundos con efecto especial */}
-                <span className="time-val seconds-glow">{tiempo.segs}</span>
-                <span className="time-label">SEG</span>
-              </div>
+              <div className="timer-block"><span className="time-val seconds-glow">{tiempo.segs}</span><span className="time-label">SEG</span></div>
             </div>
           </>
         )}
       </section>
 
-      {/* GRID (Igual que antes) */}
+      {/* GRID PRINCIPAL */}
       <div className="dashboard-grid">
-        <div className="column-stack">
-          <div className="stat-card">
-            <div className="stat-icon-bg morado"><Trophy size={24} color="#bd00ff" /></div>
-            <div className="stat-info">
-              <span className="stat-label">Mis Puntos</span>
-              <h2 className="stat-value">{infoMundial?.misPuntos}</h2>
+        
+        {/* COLUMNA IZQUIERDA: 3 TARJETAS (Puntos, Ranking, Predicciones) */}
+        <div className="column-stack left-col">
+          
+          {/* 1. PUNTOS (Morado) */}
+          <div className="card-reglas card-neon-purple">
+            <div className="reglas-icon"><Trophy size={32} /></div>
+            <div className="reglas-info">
+              <span className="reglas-value">+{infoMundial?.misPuntos}</span>
+              <span className="reglas-label">MIS PUNTOS</span>
+              <p className="reglas-desc">Puntos acumulados totales.</p>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon-bg cian"><TrendingUp size={24} color="#00f2ff" /></div>
-            <div className="stat-info">
-              <span className="stat-label">Ranking Global</span>
-              <h2 className="stat-value"># {infoMundial?.miRanking}</h2>
+
+          {/* 2. RANKING (Cian) */}
+          <div className="card-reglas card-neon-cyan">
+            <div className="reglas-icon"><TrendingUp size={32} /></div>
+            <div className="reglas-info">
+              <span className="reglas-value">#{infoMundial?.miRanking}</span>
+              <span className="reglas-label">RANKING GLOBAL</span>
+              <p className="reglas-desc">Tu posición en la tabla general.</p>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon-bg verde"><Ticket size={24} color="#10b981" /></div>
-            <div className="stat-info">
-              <span className="stat-label">Predicciones</span>
-              <h2 className="stat-value">{infoMundial?.misPredicciones} / {infoMundial?.totalPartidos}</h2>
+
+          {/* 3. PREDICCIONES (Verde) */}
+          <div className="card-reglas card-neon-green">
+            <div className="reglas-icon"><Ticket size={32} /></div>
+            <div className="reglas-info">
+              <span className="reglas-value">{infoMundial?.misPredicciones}/{infoMundial?.totalPartidos}</span>
+              <span className="reglas-label">PREDICCIONES</span>
+              <p className="reglas-desc">Partidos pronosticados.</p>
             </div>
           </div>
+
         </div>
 
-        <div className="column-stack">
-          <div className="card-especial palo-card">
-            <div className="header-card">
-              <Flag size={16} /> <span>TU EQUIPO SORTEADO</span>
+        {/* COLUMNA DERECHA */}
+        <div className="column-stack right-col">
+          
+          {/* 1. SUPER TARJETA FAVORITOS (Borde Completo) */}
+          <div className="super-card-favoritos">
+            <div className="super-header">
+                <Crown size={20} color="#fbbf24" /> MIS FAVORITOS
             </div>
-            <div className="contenido-palo">
-              {infoMundial?.equipoPalo ? (
-                <>
-                  <img src={infoMundial.equipoPalo.bandera} alt="Bandera" className="bandera-grande" />
-                  <h3>{infoMundial.equipoPalo.nombre}</h3>
-                </>
-              ) : (
-                <p className="texto-vacio">Pendiente de Sorteo</p>
-              )}
+            
+            <div className="super-body">
+                {/* SECCIÓN CAMPEÓN */}
+                <div className="champ-section">
+                    <span className="label-super">CAMPEÓN</span>
+                    {infoMundial?.prediccionesEspeciales?.campeon ? (
+                        <div className="champ-display">
+                            <h3 className="pais-nombre">{infoMundial.prediccionesEspeciales.campeon.nombre}</h3>
+                            <img src={infoMundial.prediccionesEspeciales.campeon.bandera} alt="Bandera" className="bandera-gigante animate-pop" />
+                        </div>
+                    ) : <span className="pendiente-text">No seleccionado</span>}
+                </div>
+
+                <div className="divider-vertical"></div>
+
+                {/* SECCIÓN GOLEADOR */}
+                <div className="scorer-section">
+                    <span className="label-super">GOLEADOR</span>
+                    {infoMundial?.prediccionesEspeciales?.goleador ? (
+                        <div className="scorer-display">
+                            <span className="icono-botin">👟</span>
+                            <span className="jugador-nombre">{infoMundial.prediccionesEspeciales.goleador.nombre}</span>
+                        </div>
+                    ) : <span className="pendiente-text">No seleccionado</span>}
+                </div>
             </div>
+
+            {/* --- AQUÍ ESTÁ LA LEYENDA SUTIL (Igual a Palo) --- */}
+            <p className="super-footer-text">
+                Estas son tus predicciones estratégicas para ganar puntos extra al final.
+            </p>
           </div>
 
-          <div className="card-especial vip-card">
-            <div className="header-card">
-              <Medal size={16} /> <span>TUS FAVORITOS</span>
+          {/* 2. EL PALO */}
+          <div className="palo-card-modern">
+            <div className="palo-header">
+                <Zap size={18} /> TU PALO
             </div>
-            <div className="lista-vip">
-              <div className="item-vip">
-                <span className="label-vip">Campeón</span>
-                <div className="valor-vip">
-                    {infoMundial?.prediccionesEspeciales?.campeon ? (
-                      <>
-                        <img src={infoMundial.prediccionesEspeciales.campeon.bandera} alt="" className="bandera-mini" />
-                        {infoMundial.prediccionesEspeciales.campeon.nombre}
-                      </>
-                    ) : <span className="dim">--</span>}
+            <div className="palo-content">
+                <div className="palo-main">
+                    {infoMundial?.equipoPalo ? (
+                        <>
+                           <img src={infoMundial.equipoPalo.bandera} alt="Palo" className="bandera-palo-medium" />
+                           <span className="nombre-palo">{infoMundial.equipoPalo.nombre}</span>
+                        </>
+                    ) : <span className="palo-pendiente">Sorteo Pendiente</span>}
                 </div>
-              </div>
-              <div className="item-vip">
-                <span className="label-vip">Goleador</span>
-                <div className="valor-vip">
-                    {infoMundial?.prediccionesEspeciales?.goleador ? (
-                      <>
-                        <User size={14} color="#00f2ff"/>
-                        {infoMundial.prediccionesEspeciales.goleador.nombre}
-                      </>
-                    ) : <span className="dim">--</span>}
-                </div>
-              </div>
+                {infoMundial?.equipoPalo && (
+                    <div className="badge-palo">
+                        <Dice5 size={14} /> ASIGNADO
+                    </div>
+                )}
             </div>
+            <p className="palo-footer-text">
+                Ganas puntos extra por cada fase que avance este equipo.
+            </p>
           </div>
+
         </div>
       </div>
     </div>

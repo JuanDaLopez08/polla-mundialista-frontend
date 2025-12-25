@@ -10,7 +10,7 @@ const Mundial = () => {
   return (
     <div className="mundial-container animate-fade-in">
       <div className="page-header">
-        <h1>ASÍ VA EL MUNDIAL</h1>
+      <h1 className="titulo-neon">RESUMEN DEL MUNDIAL</h1>
       </div>
 
       {/* Pestañas de Navegación */}

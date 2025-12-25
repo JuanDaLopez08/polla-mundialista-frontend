@@ -1,4 +1,4 @@
-/* --- WRAPPER GLOBAL PARA CENTRADO --- */
+/* --- WRAPPER GLOBAL --- */
 .trivia-wrapper {
     width: 100%;
     min-height: 85vh; 
@@ -20,13 +20,17 @@
     color: white;
 }
 
+/* NOTA: Eliminamos los estilos de .neon-title-large y .neon-subtitle 
+   para que usen los de globales.css (Cian/Blanco) */
+
 .juego-area {
     width: 100%; 
 }
 
 .progreso-texto {
     text-align: right; 
-    color: #00f2ff; 
+    /* Usamos el morado del borde para conectar visualmente */
+    color: #bd00ff; 
     font-weight: 700; 
     margin-bottom: 10px;
     font-size: 1.1rem; 
@@ -34,13 +38,21 @@
     letter-spacing: 1px;
 }
 
+/* === AQUÍ ESTÁ EL CAMBIO DE LA TARJETA === */
 .pregunta-card {
-    background: rgba(15, 23, 42, 0.95); 
-    border: 1px solid rgba(0, 242, 255, 0.3);
+    /* 1. FONDO: Un tono oscuro con tinte violeta (Complementario al fondo global) */
+    background: linear-gradient(145deg, rgba(20, 10, 30, 0.95), rgba(10, 5, 20, 0.98));
+    
+    /* 2. CONTORNO: Morado Neón Brillante */
+    border: 2px solid #bd00ff;
+    
     border-radius: 24px; 
     padding: 40px; 
-    position: relative; /* IMPORTANTE: Para que el overlay se centre aquí */
-    box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+    position: relative; 
+    
+    /* 3. RESPLANDOR: Luz morada detrás de la tarjeta */
+    box-shadow: 0 0 50px rgba(189, 0, 255, 0.15);
+    
     width: 100%;
     box-sizing: border-box;
 }
@@ -62,7 +74,8 @@
 }
 
 .btn-opcion {
-    background: rgba(30, 41, 59, 0.8);
+    /* Fondo semi-transparente para que se mezcle con la tarjeta */
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white; 
     padding: 20px; 
@@ -78,14 +91,15 @@
     text-align: center;
 }
 
+/* Hover con el color del tema (Morado) */
 .btn-opcion:hover:not(:disabled) {
-    background: rgba(0, 242, 255, 0.1);
-    border-color: #00f2ff; 
+    background: rgba(189, 0, 255, 0.2); /* Fondo morado suave */
+    border-color: #bd00ff; 
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 0 15px rgba(189, 0, 255, 0.4);
 }
 
-/* ESTADOS DE RESPUESTA */
+/* ESTADOS DE RESPUESTA (Verde/Rojo estándar) */
 .btn-verde, .btn-verde:disabled {
     background: #10b981 !important; 
     color: white; 
@@ -107,30 +121,28 @@
     border-color: #ef4444;
 }
 
-/* --- FEEDBACK OVERLAY (CENTRADO DENTRO DE LA CARD) --- */
+/* --- FEEDBACK OVERLAY --- */
 .feedback-overlay {
-    position: absolute; /* Relativo a la card */
+    position: absolute; 
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
-    
     width: 95%; 
     height: 90%; 
     
-    background: rgba(15, 23, 42, 0.98); 
+    /* Fondo oscuro sólido para tapar la pregunta */
+    background: rgba(10, 5, 20, 0.98); 
     border: 3px solid; 
     padding: 20px; 
     border-radius: 20px;
     text-align: center; 
     z-index: 50; 
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
     box-shadow: 0 0 50px rgba(0,0,0,0.9); 
-    backdrop-filter: blur(10px); 
+    backdrop-filter: blur(5px); 
 }
 
 .feedback-overlay.correcto { border-color: #10b981; }
@@ -160,24 +172,27 @@
     line-height: 1.4;
 }
 
-/* --- PANTALLA FINAL --- */
+/* --- PANTALLA FINAL (Mismo estilo que la tarjeta) --- */
 .resultado-final {
     text-align: center; 
-    background: rgba(15, 23, 42, 0.9);
+    /* Mismo fondo oscuro violeta */
+    background: linear-gradient(145deg, rgba(20, 10, 30, 0.95), rgba(10, 5, 20, 0.98));
     padding: 50px; 
     border-radius: 24px; 
-    border: 2px solid #00f2ff;
-    box-shadow: 0 0 40px rgba(0, 242, 255, 0.2);
+    /* Mismo borde morado */
+    border: 2px solid #bd00ff;
+    box-shadow: 0 0 40px rgba(189, 0, 255, 0.25);
     width: 100%;
     max-width: 600px;
 }
 
 .resultado-final h2 { 
-    color: #00f2ff; 
+    color: #bd00ff; /* Título interno morado */
     margin-bottom: 20px; 
     font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(189, 0, 255, 0.5);
 }
 
 .score-gigante {
@@ -195,6 +210,32 @@
     margin-bottom: 40px; 
     color: #cbd5e1; 
     font-weight: 600;
+}
+
+/* Botón Jugar de Nuevo (Estilo Morado) */
+.btn-cta-neon {
+    background: rgba(189, 0, 255, 0.1);
+    border: 1px solid #bd00ff;
+    color: #bd00ff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-cta-neon:hover {
+    background: #bd00ff;
+    color: white;
+    box-shadow: 0 0 20px rgba(189, 0, 255, 0.6);
+    transform: scale(1.05);
 }
 
 /* Animaciones */

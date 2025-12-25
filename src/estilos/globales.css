@@ -1,6 +1,11 @@
-/* Importamos fuentes de Google (Inter y Montserrat) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@700;800;900&display=swap');
+/* =========================================
+   1. FUENTES (Inter + Montserrat + RAJDHANI)
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@700;800;900&family=Rajdhani:wght@500;600;700;800&display=swap');
 
+/* =========================================
+   2. RESET Y ESTILOS BASE
+   ========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -10,13 +15,13 @@
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
-  font-family: var(--font-body);
+  font-family: var(--font-body); /* Por defecto Inter */
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: 'Rajdhani', sans-serif; /* Forzamos Rajdhani en encabezados */
   font-weight: 800;
   letter-spacing: -0.03em;
 }
@@ -24,4 +29,77 @@ h1, h2, h3, h4, h5, h6 {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* =========================================
+   3. SCROLLBAR CIAN NEÓN (GRUESO Y ENCENDIDO)
+   ========================================= */
+
+/* Ancho Robusto */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+/* El riel (Fondo oscuro profundo) */
+::-webkit-scrollbar-track {
+    background: #020617; 
+}
+
+/* La Barra (TUBO DE LUZ NEÓN) */
+::-webkit-scrollbar-thumb {
+    background-color: #00f2ff; /* Cian exacto */
+    border-radius: 6px; 
+    
+    /* Borde fino del mismo color del fondo para efecto flotante */
+    border: 2px solid #020617; 
+    
+    /* Sombra brillante para efecto "Encendido" */
+    box-shadow: 0 0 8px rgba(0, 242, 255, 0.8); 
+}
+
+/* Al pasar el mouse (Incandescente) */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #ccfbff; 
+    box-shadow: 0 0 15px #00f2ff; 
+}
+
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #00f2ff #020617;
+}
+
+/* =========================================
+   4. CLASES DE TEXTO NEÓN (GLOBALES)
+   ========================================= */
+
+/* Úsala en los <h1> principales de cada página */
+.titulo-neon {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    
+    /* EFECTO DE LUZ CYBERPUNK */
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.9),  /* Núcleo blanco */
+        0 0 15px rgba(0, 242, 255, 0.7),   /* Halo cercano cian */
+        0 0 30px rgba(0, 242, 255, 0.4);   /* Resplandor lejano */
+}
+
+/* Úsala en subtítulos o encabezados de sección */
+.subtitulo-neon {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #00f2ff;
+    letter-spacing: 1.5px;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
 }

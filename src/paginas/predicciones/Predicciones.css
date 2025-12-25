@@ -1,16 +1,22 @@
+/* =========================================
+   ESTILOS COMPLETOS: PREDICCIONES & CLASIFICADOS
+   ========================================= */
+
 /* --- 1. LAYOUT GENERAL --- */
 .predicciones-layout {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 15px;
-  padding-bottom: 120px;
+  /* Espacio extra abajo para que el botón flotante no tape el último partido */
+  padding-bottom: 120px; 
   color: white;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Evita scroll horizontal en la página entera */
   display: flex;           
   flex-direction: column;  
-  min-height: 90vh;        
+  min-height: 90vh;
+  position: relative; /* Necesario para el posicionamiento absoluto/fijo interno */
 }
 
 .animate-fade-in { animation: fadeIn 0.5s ease-out; }
@@ -21,30 +27,49 @@
   border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; margin-top: 20px;
 }
 
+/* CLASE FALTANTE AGREGADA */
+.fases-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 /* --- 2. CABECERA Y PESTAÑAS --- */
 .page-header { 
     margin-bottom: 30px; 
     margin-top: 10px; 
     text-align: center; 
+    width: 100%;
 }
 
+/* TÍTULO: Uso clamp para que se escale solo */
 .page-header h1 {
   font-family: var(--font-heading, sans-serif);
-  font-size: clamp(1.5rem, 6vw, 2.5rem);
-  margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2;
+  font-size: clamp(1.8rem, 5vw, 2.5rem); 
+  margin: 0 0 20px 0; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  line-height: 1.2;
+  word-wrap: break-word; 
 }
 
+/* SCROLL HORIZONTAL DE PESTAÑAS */
 .tabs-scroll-container {
   margin-top: 20px;
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 5px;
+  
+  /* Ocultar barra de scroll estéticamente */
   scrollbar-width: none; 
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch; 
-  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 85%, transparent 100%);
+  
+  /* Máscara de desvanecimiento */
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
 .tabs-scroll-container::-webkit-scrollbar { display: none; }
 
@@ -52,14 +77,18 @@
   display: inline-flex;
   gap: 5px;
   align-items: center;
-  padding: 0 60px 0 20px; 
+  /* Padding lateral seguro */
+  padding: 0 40px; 
+  min-width: 100%;
+  /* Por defecto centrado, en móvil se ajustará a la izquierda */
+  justify-content: center; 
 }
 
 .tab-btn {
   background: transparent; border: none; color: #94a3b8; padding: 10px 15px;
   font-size: 0.85rem; font-weight: 800; cursor: pointer; position: relative;
   transition: all 0.3s; text-transform: uppercase;
-  flex-shrink: 0; 
+  flex-shrink: 0; /* IMPIDE QUE SE ENCOJAN */
 }
 .tab-btn.active { color: #00f2ff; }
 .tab-btn.active::after {
@@ -101,12 +130,11 @@
 /* --- 4. GRID DE PARTIDOS --- */
 .matches-grid {
   display: grid;
+  /* Mínimo 320px para escritorio, pero en móvil lo forzaremos a 1fr */
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 15px; padding: 15px;
-}
-@media (max-width: 600px) {
-  .matches-grid { grid-template-columns: 1fr; padding: 10px; }
-  .predicciones-layout { padding: 10px; padding-bottom: 100px; }
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* --- 5. TARJETA PARTIDO (BASE) --- */
@@ -114,18 +142,17 @@
   background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px; padding: 15px; position: relative;
   transition: all 0.3s ease;
+  width: 100%; /* Asegura que ocupe el ancho de la celda */
+  box-sizing: border-box; /* Evita desborde por padding */
 }
 .match-card.unsaved { border-color: #facc15; background: rgba(250, 204, 21, 0.02); }
 .match-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(0.5); }
 
 /* --- NUEVO: TARJETA PARTIDO (PREDICHO/GUARDADO) --- */
-/* AHORA SÍ: Mismo estilo Neon que los Clasificados */
 .match-card.predicho {
   opacity: 1; 
-  pointer-events: none; /* Bloquea interaccion pero se ve vivo */
+  pointer-events: none; 
   filter: none; 
-  
-  /* Borde Cyan y Fondo Sutil */
   border: 1px solid #00f2ff; 
   background: rgba(0, 242, 255, 0.05); 
   box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); 
@@ -138,16 +165,14 @@
   font-weight: 800;
   text-transform: uppercase;
   display: flex; align-items: center; justify-content: center; gap: 5px;
-  
-  /* CORRECCIÓN: Separación del marcador */
   margin-top: 12px; 
   letter-spacing: 1px;
 }
 
 /* INPUTS CUANDO ESTÁ PREDICHO (Números brillantes) */
 .match-card.predicho .input-score:disabled {
-  background: rgba(0, 0, 0, 0.6); /* Fondo oscuro para contraste */
-  color: #00f2ff; /* Numero Cyan */
+  background: rgba(0, 0, 0, 0.6); 
+  color: #00f2ff; 
   border-color: rgba(0, 242, 255, 0.3);
   opacity: 1;
   font-weight: 800;
@@ -168,7 +193,11 @@
   width: 38px; height: auto; border-radius: 4px; margin-bottom: 6px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5); object-fit: cover;
 }
-.team-name { font-size: 0.8rem; font-weight: 600; line-height: 1.1; color: #e2e8f0; }
+/* Agregamos manejo de texto para nombres largos */
+.team-name { 
+  font-size: 0.8rem; font-weight: 600; line-height: 1.1; color: #e2e8f0; 
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block;
+}
 
 /* --- 6. INPUTS Y BOTONES --- */
 .center-action { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 38%; }
@@ -197,14 +226,29 @@
   box-shadow: 0 0 8px rgba(0, 242, 255, 0.1); transform: scale(0.98);
 }
 
-/* --- 7. BOTÓN FLOTANTE --- */
+/* --- 7. BOTÓN FLOTANTE (CORREGIDO Y CENTRADO) --- */
 .floating-save-bar {
-  position: sticky; bottom: 20px; align-self: center; z-index: 1000;
-  width: auto; background: transparent; padding: 0;
-  display: flex; justify-content: center; align-items: center;
+  /* Posición fija para que siempre se vea */
+  position: fixed; 
+  bottom: 20px; 
+  
+  /* TRUCO DE CENTRADO EXACTO RELATIVO AL LAYOUT */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px; /* Respeta el ancho del layout padre */
+  
+  z-index: 1000;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  pointer-events: none; /* Permite clicks a los lados */
+  padding: 0 20px; /* Margen seguro en móviles */
+  box-sizing: border-box;
 }
 
 .btn-save-all {
+  pointer-events: auto; /* Reactivar clicks en el botón */
   background: #00f2ff; color: black; border: none; padding: 12px 30px;
   border-radius: 50px; font-weight: 800; cursor: pointer;
   display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
@@ -400,4 +444,109 @@
 @media (max-width: 480px) {
   .toast-container { right: 50%; transform: translateX(50%); width: 90%; top: 20px; }
   .toast-notification { width: 100%; min-width: auto; justify-content: center; }
+}
+
+
+/* =================================================================
+   RESPONSIVE DESIGN (SOLUCIÓN DEFINITIVA)
+   ================================================================= */
+
+/* 1. TABLETS (1024px e inferior) */
+@media (max-width: 1024px) {
+  .predicciones-layout {
+    padding-bottom: 100px;
+  }
+  
+  .matches-grid { 
+    grid-template-columns: 1fr 1fr; /* 2 Columnas */
+  }
+}
+
+/* 2. MÓVILES (Max 768px) */
+@media (max-width: 768px) {
+  
+  /* Layout: Reducción de padding */
+  .predicciones-layout {
+    padding: 10px;
+    padding-bottom: 100px; /* Asegura espacio para botón flotante */
+  }
+
+  /* A. FIX TÍTULOS CATEGORÍAS (ESPECIALES) */
+  .section-divider {
+    font-size: 1.2rem !important;
+    text-align: center !important; /* Centrado para que se vea */
+    white-space: normal; /* Permite saltos de línea */
+    margin: 15px 0 !important;
+  }
+  
+  .page-header h1 {
+    font-size: 1.6rem !important; 
+    padding: 0 10px;
+  }
+
+  /* B. FIX PESTAÑAS (Scroll izquierda habilitado) */
+  .tabs-container {
+    justify-content: flex-start !important; 
+    padding: 0 20px;
+  }
+  .tabs-scroll-container { text-align: left; }
+  .tab-btn { font-size: 0.8rem; padding: 10px 10px; }
+
+  /* C. FIX TARJETAS DESBORDADAS */
+  .matches-grid {
+    grid-template-columns: 1fr; /* Una sola columna que ocupa todo el ancho */
+    gap: 15px;
+    padding: 0; /* Quitamos padding interno del grid */
+    width: 100%;
+  }
+  
+  /* Especiales Grid a 1 columna */
+  .especiales-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+  
+  /* Ajuste para que la tarjeta no se salga */
+  .match-card { 
+    padding: 12px; 
+    width: 100%; 
+    margin: 0; 
+  }
+  
+  .input-score { width: 40px; height: 40px; font-size: 1.2rem; }
+  
+  /* D. FIX BOTÓN FLOTANTE (Ancho y posición correcta) */
+  .btn-save-all { 
+    width: 90%; 
+    justify-content: center; 
+    padding: 12px; 
+    font-size: 0.85rem;
+  }
+  
+  /* Toast centrado */
+  .toast-container {
+    top: 15px; left: 15px; right: 15px; width: auto; align-items: center;
+  }
+  .toast-notification { width: 100%; justify-content: center; }
+}
+
+/* 3. MÓVILES PEQUEÑOS (480px e inferior) */
+@media (max-width: 480px) {
+  .grupo-header-acordeon { padding: 10px; }
+  .titulo-grupo { font-size: 1rem; }
+  .btn-guardar-grupo { padding: 5px 10px; font-size: 0.7rem; }
+  
+  /* Ajustes finos para pantallas muy angostas */
+  .match-body { gap: 2px; }
+  .team-col { width: 35%; }
+  .team-flag { width: 30px; margin-bottom: 4px; }
+  
+  /* Nombres más pequeños para que no rompan */
+  .team-name { font-size: 0.7rem; } 
+
+  .center-action { gap: 4px; width: 30%; }
+  .input-score { width: 35px; height: 35px; font-size: 1.1rem; }
+  .score-inputs { gap: 3px; }
+  
+  .match-header { font-size: 0.65rem; flex-direction: column; gap: 5px; }
 }
