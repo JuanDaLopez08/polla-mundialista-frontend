@@ -13,13 +13,23 @@ import Rivales from './paginas/rivales/Rivales';
 import Reglas from './paginas/reglas/Reglas'; 
 import Trivia from './paginas/trivia/Trivia'; 
 
-// --- PAGINAS DE ADMINISTRACIÓN (NUEVO) ---
-import DashboardAdmin from './paginas/admin/DashboardAdmin';
+// --- PAGINAS DE ADMINISTRACIÓN ---
+import PanelControl from './paginas/admin/panel-control/PanelControl';
+import GestionJugadores from './paginas/admin/jugadores/GestionJugadores';
+import GestionEquipos from './paginas/admin/equipos/GestionEquipos';
+import AdminSorteo from './paginas/admin/sorteo/AdminSorteo';
+import AdminConfig from './paginas/admin/configuracion/AdminConfig';
+import AdminDefiniciones from './paginas/admin/definiciones/AdminDefiniciones'; // <--- IMPORT AGREGADO
+
+// (Rutas pendientes)
+// import GestionPartidos from './paginas/admin/gestion-partidos/GestionPartidos';
+// import AdminUsuarios from './paginas/admin/usuarios/AdminUsuarios';
+
 
 // --- LAYOUTS Y SEGURIDAD ---
 import PlantillaPrivada from './plantillas/PlantillaPrivada';
 import RutaPrivada from './componentes/seguridad/RutaPrivada';
-import RutaAdmin from './componentes/seguridad/RutaAdmin'; // ✅ IMPORTANTE: Seguridad Admin
+import RutaAdmin from './componentes/seguridad/RutaAdmin'; 
 import { useAutenticacion } from './hooks/useAutenticacion'; 
 
 // Manejo de error 404 inteligente
@@ -75,13 +85,72 @@ function App() {
         {/* =========================================
             ZONA ADMINISTRATIVA (PROTEGIDA)
            ========================================= */}
-        <Route path="/admin" element={
-            <RutaAdmin> {/* ✅ Solo pasa si es ADMIN */}
+        
+        {/* Redirección Admin */}
+        <Route path="/admin" element={<Navigate to="/admin/panel-control" replace />} />
+
+        {/* 1. Panel de Control (Inicio) */}
+        <Route path="/admin/panel-control" element={
+            <RutaAdmin>
               <PlantillaPrivada>
-                 <DashboardAdmin />
+                 <PanelControl />
               </PlantillaPrivada>
             </RutaAdmin>
         } />
+
+        {/* 2. Gestión de Jugadores */}
+        <Route path="/admin/jugadores" element={
+            <RutaAdmin>
+              <PlantillaPrivada>
+                 <GestionJugadores />
+              </PlantillaPrivada>
+            </RutaAdmin>
+        } />
+
+        {/* 3. Gestión de Equipos */}
+        <Route path="/admin/equipos" element={
+            <RutaAdmin>
+              <PlantillaPrivada>
+                 <GestionEquipos />
+              </PlantillaPrivada>
+            </RutaAdmin>
+        } />
+
+        {/* 4. Sorteo de Palos */}
+        <Route path="/admin/sorteo" element={
+            <RutaAdmin>
+              <PlantillaPrivada>
+                 <AdminSorteo />
+              </PlantillaPrivada>
+            </RutaAdmin>
+        } />
+
+        {/* 5. Configuración del Sistema */}
+        <Route path="/admin/configuracion" element={
+            <RutaAdmin>
+              <PlantillaPrivada>
+                 <AdminConfig />
+              </PlantillaPrivada>
+            </RutaAdmin>
+        } /> 
+
+        {/* 6. Definiciones Finales (NUEVA RUTA ACTIVA) */}
+        <Route path="/admin/definiciones" element={
+            <RutaAdmin>
+              <PlantillaPrivada>
+                 <AdminDefiniciones />
+              </PlantillaPrivada>
+            </RutaAdmin>
+        } />
+
+        {/* RUTAS PENDIENTES DE CREAR ARCHIVO */}
+        {/* <Route path="/admin/gestion-partidos" element={
+            <RutaAdmin><PlantillaPrivada><GestionPartidos /></PlantillaPrivada></RutaAdmin>
+        } />
+        <Route path="/admin/usuarios" element={
+            <RutaAdmin><PlantillaPrivada><AdminUsuarios /></PlantillaPrivada></RutaAdmin>
+        } />
+        */}
         
         {/* CATCH ALL (404) */}
         <Route path="*" element={<ManejoRutaNoEncontrada />} />

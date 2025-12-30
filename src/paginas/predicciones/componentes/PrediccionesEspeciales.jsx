@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Save, Trophy, Medal, User, Lock, CheckCircle } from 'lucide-react';
+import { Save, Trophy, Medal, User, Lock, CheckCircle, AlertTriangle } from 'lucide-react';
 import { 
     obtenerEquipos, 
     obtenerJugadores, 
@@ -16,12 +16,19 @@ const PrediccionesEspeciales = ({ usuarioId, notificar }) => {
   const [campeonId, setCampeonId] = useState('');
   const [goleadorId, setGoleadorId] = useState('');
   
-  // Estados de Bloqueo
+  // Estados de Bloqueo (Si ya guardó en BD)
   const [campeonLocked, setCampeonLocked] = useState(false);
   const [goleadorLocked, setGoleadorLocked] = useState(false);
   
   const [loading, setLoading] = useState(true);
-  const [guardando, setGuardando] = useState(false);
+
+  // --- ESTADO DEL MODAL ---
+  const [modalConfig, setModalConfig] = useState({
+    isOpen: false,
+    tipo: '', // 'CAMPEON' | 'GOLEADOR'
+    idSeleccionado: '',
+    nombreSeleccionado: ''
+  });
 
   useEffect(() => {
     if (usuarioId) cargarDatos();
@@ -40,22 +47,15 @@ const PrediccionesEspeciales = ({ usuarioId, notificar }) => {
       setJugadores(listaJugadores);
 
       if (misEspeciales) {
-        console.log("Datos Back:", misEspeciales);
-
-        // 1. Validar Campeón (DTO: equipoCampeon)
-        // Verificamos si existe el objeto y si tiene ID
         if (misEspeciales.equipoCampeon?.id) {
-            setCampeonId(String(misEspeciales.equipoCampeon.id)); // Convertir a String es clave
+            setCampeonId(String(misEspeciales.equipoCampeon.id)); 
             setCampeonLocked(true);
         }
-
-        // 2. Validar Goleador (DTO: jugadorGoleador)
         if (misEspeciales.jugadorGoleador?.id) {
-            setGoleadorId(String(misEspeciales.jugadorGoleador.id)); // Convertir a String es clave
+            setGoleadorId(String(misEspeciales.jugadorGoleador.id)); 
             setGoleadorLocked(true);
         }
       }
-
     } catch (error) {
       console.error("Error cargando especiales:", error);
       if(notificar) notificar("Error cargando datos", "error");
@@ -64,46 +64,57 @@ const PrediccionesEspeciales = ({ usuarioId, notificar }) => {
     }
   };
 
-  const handleGuardar = async () => {
-    // Calculamos qué vamos a guardar DENTRO de la función
-    const guardarC = !campeonLocked && campeonId;
-    const guardarG = !goleadorLocked && goleadorId;
+  // --- 1. ABRIR MODAL ---
+  const confirmarGuardado = (tipo) => {
+    if (tipo === 'CAMPEON') {
+        const equipo = equipos.find(e => String(e.id) === String(campeonId));
+        if (!equipo) return;
+        setModalConfig({
+            isOpen: true,
+            tipo: 'CAMPEON',
+            idSeleccionado: campeonId,
+            nombreSeleccionado: equipo.nombre
+        });
+    } else if (tipo === 'GOLEADOR') {
+        const jugador = jugadores.find(j => String(j.id) === String(goleadorId));
+        if (!jugador) return;
+        setModalConfig({
+            isOpen: true,
+            tipo: 'GOLEADOR',
+            idSeleccionado: goleadorId,
+            nombreSeleccionado: jugador.nombre
+        });
+    }
+  };
 
-    if (!guardarC && !guardarG) return;
-    
-    setGuardando(true);
+  const cerrarModal = () => {
+    setModalConfig({ isOpen: false, tipo: '', idSeleccionado: '', nombreSeleccionado: '' });
+  };
+
+  // --- 2. EJECUTAR GUARDADO INDIVIDUAL ---
+  const ejecutarGuardado = async () => {
+    const { tipo, idSeleccionado } = modalConfig;
+    cerrarModal(); // Cerramos modal primero
+
     try {
-      const promesas = [];
-
-      if (guardarC) promesas.push(guardarCampeon({ usuarioId, equipoId: campeonId }));
-      if (guardarG) promesas.push(guardarGoleador({ usuarioId, jugadorId: goleadorId }));
-
-      await Promise.all(promesas);
-
-      if(notificar) notificar("¡Selección guardada con éxito!", "exito");
-      
-      // Bloquear visualmente
-      if (guardarC) setCampeonLocked(true);
-      if (guardarG) setGoleadorLocked(true);
-
+        if (tipo === 'CAMPEON') {
+            await guardarCampeon({ usuarioId, equipoId: idSeleccionado });
+            setCampeonLocked(true);
+            if(notificar) notificar("¡Campeón guardado exitosamente!", "exito");
+        } else if (tipo === 'GOLEADOR') {
+            await guardarGoleador({ usuarioId, jugadorId: idSeleccionado });
+            setGoleadorLocked(true);
+            if(notificar) notificar("¡Goleador guardado exitosamente!", "exito");
+        }
     } catch (error) {
-      console.error(error);
-      if(notificar) notificar("Error al guardar", "error");
-    } finally {
-      setGuardando(false);
+        console.error(`Error guardando ${tipo}:`, error);
+        if(notificar) notificar("Error al guardar la selección.", "error");
     }
   };
 
   // Helpers visuales
   const equipoSeleccionado = equipos.find(e => String(e.id) === String(campeonId));
   const jugadorSeleccionado = jugadores.find(j => String(j.id) === String(goleadorId));
-  
-  // Variables lógicas para la UI (Corrección del error 'guardarG is not defined')
-  const todoListo = campeonLocked && goleadorLocked;
-  
-  // ¿Hay algo nuevo pendiente por guardar?
-  // Es decir: (Tengo ID de campeón Y no está bloqueado) O (Tengo ID de goleador Y no está bloqueado)
-  const hayCambiosPendientes = (campeonId && !campeonLocked) || (goleadorId && !goleadorLocked);
 
   if (loading) return <div className="loading-msg">Cargando opciones...</div>;
 
@@ -112,7 +123,7 @@ const PrediccionesEspeciales = ({ usuarioId, notificar }) => {
       
       <div className="especiales-grid">
         
-        {/* CARD CAMPEÓN */}
+        {/* === CARD CAMPEÓN === */}
         <div className={`special-card ${campeonLocked ? 'locked-card' : ''}`}>
           <div className="special-header">
             <Trophy className="icon-gold" size={32} />
@@ -142,9 +153,20 @@ const PrediccionesEspeciales = ({ usuarioId, notificar }) => {
             </select>
             {!campeonLocked && <div className="select-arrow">▼</div>}
           </div>
+
+          {/* BOTÓN INDIVIDUAL CAMPEÓN */}
+          {!campeonLocked && (
+              <button 
+                className="btn-card-action"
+                disabled={!campeonId}
+                onClick={() => confirmarGuardado('CAMPEON')}
+              >
+                <Save size={16} /> GUARDAR
+              </button>
+          )}
         </div>
 
-        {/* CARD GOLEADOR */}
+        {/* === CARD GOLEADOR === */}
         <div className={`special-card ${goleadorLocked ? 'locked-card' : ''}`}>
           <div className="special-header">
             <Medal className="icon-silver" size={32} />
@@ -174,28 +196,48 @@ const PrediccionesEspeciales = ({ usuarioId, notificar }) => {
             </select>
             {!goleadorLocked && <div className="select-arrow">▼</div>}
           </div>
+
+          {/* BOTÓN INDIVIDUAL GOLEADOR */}
+          {!goleadorLocked && (
+              <button 
+                className="btn-card-action"
+                disabled={!goleadorId}
+                onClick={() => confirmarGuardado('GOLEADOR')}
+              >
+                <Save size={16} /> GUARDAR
+              </button>
+          )}
         </div>
 
       </div>
 
-      <div className="action-footer">
-        {/* CORRECCIÓN SONARQUBE: Invertimos el orden (If true -> Mensaje, Else -> Botón) */}
-        {todoListo ? (
-            <div className="info-msg" style={{padding: '10px 20px', border:'1px solid #10b981', color: '#10b981', display:'inline-flex', gap:'10px', alignItems:'center'}}>
-                <CheckCircle size={20}/> ¡Tus predicciones especiales están listas!
+      {/* === MODAL DE CONFIRMACIÓN === */}
+      {modalConfig.isOpen && (
+        <div className="cyber-modal-overlay">
+            <div className="cyber-modal-content">
+                <div className="modal-icon-wrapper">
+                    <AlertTriangle size={50} color="#00f2ff" />
+                </div>
+                <h3>CONFIRMAR SELECCIÓN</h3>
+                <p>
+                    Vas a elegir a <strong style={{color:'#00f2ff'}}>{modalConfig.nombreSeleccionado}</strong> <br/>
+                    como tu predicción para {modalConfig.tipo === 'CAMPEON' ? 'Campeón' : 'Goleador'}.
+                </p>
+                <p style={{fontSize:'0.85rem', color:'#ef4444'}}>
+                    ⚠️ Esta acción no se puede deshacer.
+                </p>
+                
+                <div className="modal-actions">
+                    <button className="btn-modal btn-cancel" onClick={cerrarModal}>
+                        Cancelar
+                    </button>
+                    <button className="btn-modal btn-confirm" onClick={ejecutarGuardado}>
+                        Confirmar
+                    </button>
+                </div>
             </div>
-        ) : (
-            <button 
-                className="btn-save-all" 
-                onClick={handleGuardar}
-                // CORRECCIÓN ESLINT: Usamos la variable calculada 'hayCambiosPendientes'
-                // El botón se deshabilita si: está guardando O NO hay cambios pendientes
-                disabled={guardando || !hayCambiosPendientes}
-            >
-                <Save size={20} /> {guardando ? 'GUARDANDO...' : 'GUARDAR SELECCIÓN'}
-            </button>
-        )}
-      </div>
+        </div>
+      )}
 
     </div>
   );

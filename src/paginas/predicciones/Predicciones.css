@@ -8,15 +8,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 15px;
-  /* Espacio extra abajo para que el botón flotante no tape el último partido */
-  padding-bottom: 120px; 
+  padding-bottom: 120px; /* Espacio para botón flotante */
   color: white;
   box-sizing: border-box;
-  overflow-x: hidden; /* Evita scroll horizontal en la página entera */
+  overflow-x: hidden;
   display: flex;           
   flex-direction: column;  
   min-height: 90vh;
-  position: relative; /* Necesario para el posicionamiento absoluto/fijo interno */
+  position: relative;
 }
 
 .animate-fade-in { animation: fadeIn 0.5s ease-out; }
@@ -27,7 +26,6 @@
   border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; margin-top: 20px;
 }
 
-/* CLASE FALTANTE AGREGADA */
 .fases-container {
   width: 100%;
   display: flex;
@@ -43,7 +41,6 @@
     width: 100%;
 }
 
-/* TÍTULO: Uso clamp para que se escale solo */
 .page-header h1 {
   font-family: var(--font-heading, sans-serif);
   font-size: clamp(1.8rem, 5vw, 2.5rem); 
@@ -61,13 +58,9 @@
   overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 5px;
-  
-  /* Ocultar barra de scroll estéticamente */
   scrollbar-width: none; 
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch; 
-  
-  /* Máscara de desvanecimiento */
   mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
@@ -77,10 +70,8 @@
   display: inline-flex;
   gap: 5px;
   align-items: center;
-  /* Padding lateral seguro */
   padding: 0 40px; 
   min-width: 100%;
-  /* Por defecto centrado, en móvil se ajustará a la izquierda */
   justify-content: center; 
 }
 
@@ -88,7 +79,7 @@
   background: transparent; border: none; color: #94a3b8; padding: 10px 15px;
   font-size: 0.85rem; font-weight: 800; cursor: pointer; position: relative;
   transition: all 0.3s; text-transform: uppercase;
-  flex-shrink: 0; /* IMPIDE QUE SE ENCOJAN */
+  flex-shrink: 0;
 }
 .tab-btn.active { color: #00f2ff; }
 .tab-btn.active::after {
@@ -130,7 +121,6 @@
 /* --- 4. GRID DE PARTIDOS --- */
 .matches-grid {
   display: grid;
-  /* Mínimo 320px para escritorio, pero en móvil lo forzaremos a 1fr */
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 15px; padding: 15px;
   width: 100%;
@@ -142,13 +132,20 @@
   background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px; padding: 15px; position: relative;
   transition: all 0.3s ease;
-  width: 100%; /* Asegura que ocupe el ancho de la celda */
-  box-sizing: border-box; /* Evita desborde por padding */
+  width: 100%;
+  box-sizing: border-box;
 }
 .match-card.unsaved { border-color: #facc15; background: rgba(250, 204, 21, 0.02); }
-.match-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(0.5); }
 
-/* --- NUEVO: TARJETA PARTIDO (PREDICHO/GUARDADO) --- */
+/* ESTILO BLOQUEADO (TIEMPO AGOTADO SIN PREDICCIÓN) */
+.match-card.locked { 
+  opacity: 0.6; 
+  pointer-events: none; 
+  filter: grayscale(0.8); 
+  border-color: #334155;
+}
+
+/* ESTILO PREDICHO/GUARDADO (NEON) */
 .match-card.predicho {
   opacity: 1; 
   pointer-events: none; 
@@ -161,12 +158,24 @@
 /* MENSAJE "GUARDADO" EN TARJETA PARTIDO */
 .mensaje-marcador-listo {
   font-size: 0.75rem;
-  color: #00f2ff; /* CYAN NEON */
+  color: #00f2ff;
   font-weight: 800;
   text-transform: uppercase;
   display: flex; align-items: center; justify-content: center; gap: 5px;
   margin-top: 12px; 
   letter-spacing: 1px;
+}
+
+/* NUEVO: MENSAJE "FASE CERRADA" O "TIEMPO AGOTADO" */
+.status-text-locked {
+  font-size: 0.75rem;
+  color: #ef4444; /* Rojo suave */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  display: block;
+  text-align: center;
 }
 
 /* INPUTS CUANDO ESTÁ PREDICHO (Números brillantes) */
@@ -193,10 +202,10 @@
   width: 38px; height: auto; border-radius: 4px; margin-bottom: 6px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5); object-fit: cover;
 }
-/* Agregamos manejo de texto para nombres largos */
 .team-name { 
-  font-size: 0.8rem; font-weight: 600; line-height: 1.1; color: #e2e8f0; 
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block;
+  font-size: 0.8rem; font-weight: 600; line-height: 1.2; color: #e2e8f0; 
+  white-space: normal; overflow: visible; text-overflow: clip; word-wrap: break-word; 
+  max-width: 100%; display: block; margin-top: 4px;
 }
 
 /* --- 6. INPUTS Y BOTONES --- */
@@ -212,6 +221,7 @@
 .input-score::-webkit-outer-spin-button,
 .input-score::-webkit-inner-spin-button { -webkit-appearance: none !important; margin: 0 !important; }
 .input-score:focus { border-color: #00f2ff; box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+.input-score:disabled { background: rgba(255,255,255,0.05); color: #64748b; border-color: #334155; }
 
 .divider { font-size: 1rem; color: #64748b; }
 
@@ -226,30 +236,16 @@
   box-shadow: 0 0 8px rgba(0, 242, 255, 0.1); transform: scale(0.98);
 }
 
-/* --- 7. BOTÓN FLOTANTE (CORREGIDO Y CENTRADO) --- */
+/* --- 7. BOTÓN FLOTANTE --- */
 .floating-save-bar {
-  /* Posición fija para que siempre se vea */
-  position: fixed; 
-  bottom: 20px; 
-  
-  /* TRUCO DE CENTRADO EXACTO RELATIVO AL LAYOUT */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 1200px; /* Respeta el ancho del layout padre */
-  
-  z-index: 1000;
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-  pointer-events: none; /* Permite clicks a los lados */
-  padding: 0 20px; /* Margen seguro en móviles */
-  box-sizing: border-box;
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 1200px; z-index: 1000;
+  display: flex; justify-content: center; align-items: center;
+  pointer-events: none; padding: 0 20px; box-sizing: border-box;
 }
 
 .btn-save-all {
-  pointer-events: auto; /* Reactivar clicks en el botón */
-  background: #00f2ff; color: black; border: none; padding: 12px 30px;
+  pointer-events: auto; background: #00f2ff; color: black; border: none; padding: 12px 30px;
   border-radius: 50px; font-weight: 800; cursor: pointer;
   display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
   box-shadow: 0 5px 20px rgba(0, 242, 255, 0.4);
@@ -281,7 +277,6 @@
 .toast-info { background: rgba(59, 130, 246, 0.95); border-left: 5px solid #1d4ed8; }
 
 /* --- SECCIÓN ESPECIALES Y CLASIFICADOS --- */
-
 .section-divider {
   margin: 20px 0 20px 0; padding-bottom: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -351,8 +346,7 @@
 
 .action-footer { display: flex; justify-content: center; margin-top: 20px; }
 
-/* === UNIFICACIÓN DE ESTILOS DE BLOQUEO (NEON STYLE) === */
-
+/* === UNIFICACIÓN DE ESTILOS DE BLOQUEO === */
 .locked-card {
   opacity: 1; pointer-events: none; filter: none; 
   border: 1px solid #00f2ff; background: rgba(0, 242, 255, 0.05); 
@@ -373,7 +367,78 @@
   border: 1px solid rgba(0, 242, 255, 0.3);
 }
 
-/* --- ESTILOS CLASIFICADOS (ABAJO) --- */
+/* === NUEVO: BOTÓN INDIVIDUAL DENTRO DE TARJETAS ESPECIALES === */
+.btn-card-action {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(0, 242, 255, 0.1);
+  color: #00f2ff;
+  border: 1px solid #00f2ff;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-card-action:hover:not(:disabled) {
+  background: #00f2ff;
+  color: black;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+}
+
+.btn-card-action:disabled {
+  border-color: #334155;
+  color: #64748b;
+  background: transparent;
+  cursor: not-allowed;
+}
+
+/* === NUEVO: ESTILOS DEL MODAL CYBERPUNK === */
+.cyber-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 20000; animation: fadeIn 0.2s ease-out;
+}
+
+.cyber-modal-content {
+  background: #0a0a12; border: 1px solid #00f2ff;
+  width: 90%; max-width: 400px; padding: 2rem;
+  box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+  text-align: center; position: relative;
+  /* Clip path para bordes cortados estilo cyberpunk */
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.cyber-modal-content h3 {
+  color: white; margin: 10px 0; text-transform: uppercase; letter-spacing: 1px;
+}
+
+.cyber-modal-content p { color: #94a3b8; line-height: 1.5; margin-bottom: 20px; }
+
+.modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+
+.btn-modal {
+  padding: 10px 20px; font-weight: 700; text-transform: uppercase;
+  cursor: pointer; border: none; flex: 1;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn-cancel { background: transparent; border: 1px solid #ef4444; color: #ef4444; }
+.btn-cancel:hover { background: #ef4444; color: white; }
+
+.btn-confirm { background: #00f2ff; color: black; }
+.btn-confirm:hover { background: white; box-shadow: 0 0 15px rgba(0, 242, 255, 0.5); }
+
+
+/* --- CLASIFICADOS --- */
 .clasificados-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; }
 
 .grupo-card {
@@ -446,107 +511,44 @@
   .toast-notification { width: 100%; min-width: auto; justify-content: center; }
 }
 
-
 /* =================================================================
    RESPONSIVE DESIGN (SOLUCIÓN DEFINITIVA)
    ================================================================= */
 
-/* 1. TABLETS (1024px e inferior) */
+/* 1. TABLETS */
 @media (max-width: 1024px) {
-  .predicciones-layout {
-    padding-bottom: 100px;
-  }
-  
-  .matches-grid { 
-    grid-template-columns: 1fr 1fr; /* 2 Columnas */
-  }
+  .predicciones-layout { padding-bottom: 100px; }
+  .matches-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* 2. MÓVILES (Max 768px) */
+/* 2. MÓVILES */
 @media (max-width: 768px) {
-  
-  /* Layout: Reducción de padding */
-  .predicciones-layout {
-    padding: 10px;
-    padding-bottom: 100px; /* Asegura espacio para botón flotante */
-  }
-
-  /* A. FIX TÍTULOS CATEGORÍAS (ESPECIALES) */
-  .section-divider {
-    font-size: 1.2rem !important;
-    text-align: center !important; /* Centrado para que se vea */
-    white-space: normal; /* Permite saltos de línea */
-    margin: 15px 0 !important;
-  }
-  
-  .page-header h1 {
-    font-size: 1.6rem !important; 
-    padding: 0 10px;
-  }
-
-  /* B. FIX PESTAÑAS (Scroll izquierda habilitado) */
-  .tabs-container {
-    justify-content: flex-start !important; 
-    padding: 0 20px;
-  }
+  .predicciones-layout { padding: 10px; padding-bottom: 100px; }
+  .section-divider { font-size: 1.2rem !important; text-align: center !important; white-space: normal; margin: 15px 0 !important; }
+  .page-header h1 { font-size: 1.6rem !important; padding: 0 10px; }
+  .tabs-container { justify-content: flex-start !important; padding: 0 20px; }
   .tabs-scroll-container { text-align: left; }
   .tab-btn { font-size: 0.8rem; padding: 10px 10px; }
-
-  /* C. FIX TARJETAS DESBORDADAS */
-  .matches-grid {
-    grid-template-columns: 1fr; /* Una sola columna que ocupa todo el ancho */
-    gap: 15px;
-    padding: 0; /* Quitamos padding interno del grid */
-    width: 100%;
-  }
-  
-  /* Especiales Grid a 1 columna */
-  .especiales-grid {
-    grid-template-columns: 1fr;
-    padding: 0;
-  }
-  
-  /* Ajuste para que la tarjeta no se salga */
-  .match-card { 
-    padding: 12px; 
-    width: 100%; 
-    margin: 0; 
-  }
-  
+  .matches-grid { grid-template-columns: 1fr; gap: 15px; padding: 0; width: 100%; }
+  .especiales-grid { grid-template-columns: 1fr; padding: 0; }
+  .match-card { padding: 12px; width: 100%; margin: 0; }
   .input-score { width: 40px; height: 40px; font-size: 1.2rem; }
-  
-  /* D. FIX BOTÓN FLOTANTE (Ancho y posición correcta) */
-  .btn-save-all { 
-    width: 90%; 
-    justify-content: center; 
-    padding: 12px; 
-    font-size: 0.85rem;
-  }
-  
-  /* Toast centrado */
-  .toast-container {
-    top: 15px; left: 15px; right: 15px; width: auto; align-items: center;
-  }
+  .btn-save-all { width: 90%; justify-content: center; padding: 12px; font-size: 0.85rem; }
+  .toast-container { top: 15px; left: 15px; right: 15px; width: auto; align-items: center; }
   .toast-notification { width: 100%; justify-content: center; }
 }
 
-/* 3. MÓVILES PEQUEÑOS (480px e inferior) */
+/* 3. MÓVILES PEQUEÑOS */
 @media (max-width: 480px) {
   .grupo-header-acordeon { padding: 10px; }
   .titulo-grupo { font-size: 1rem; }
   .btn-guardar-grupo { padding: 5px 10px; font-size: 0.7rem; }
-  
-  /* Ajustes finos para pantallas muy angostas */
   .match-body { gap: 2px; }
   .team-col { width: 35%; }
   .team-flag { width: 30px; margin-bottom: 4px; }
-  
-  /* Nombres más pequeños para que no rompan */
   .team-name { font-size: 0.7rem; } 
-
   .center-action { gap: 4px; width: 30%; }
   .input-score { width: 35px; height: 35px; font-size: 1.1rem; }
   .score-inputs { gap: 3px; }
-  
   .match-header { font-size: 0.65rem; flex-direction: column; gap: 5px; }
 }

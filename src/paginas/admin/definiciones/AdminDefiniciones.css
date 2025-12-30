@@ -1,0 +1,505 @@
+/* =========================================
+   1. AMBIENTE CYBERPUNK (VARIABLES Y BASE)
+   ========================================= */
+:root {
+  --neon-cyan: #00f3ff;
+  --neon-gold: #ffd700;
+  --neon-pink: #ff00ff;
+  --bg-dark: #0a0a12;
+}
+
+.definiciones-container {
+  padding: 2rem;
+  min-height: 100vh;
+  color: #e2e8f0;
+  font-family: 'Rajdhani', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--bg-dark);
+}
+
+/* Efecto Scanlines de fondo */
+.definiciones-container::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 0;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* =========================================
+   2. HEADER (CORREGIDO: FORZADO A LA IZQUIERDA)
+   ========================================= */
+.definiciones-header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 3rem auto; /* Centramos el bloque, pero el texto irá a la izq */
+  position: relative;
+  z-index: 1;
+  
+  /* ESTILO DE LÍNEA SEPARADORA */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+  padding-bottom: 1.5rem;
+  
+  /* FUERZA ALINEACIÓN AL CONTENEDOR */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea items flex al inicio (izquierda) */
+}
+
+.titulo-neon {
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+  
+  /* CORRECCIÓN: Forzamos la alineación aquí también por si hay estilos globales */
+  text-align: center ;
+  width: 100%;
+  margin-left: 0;
+}
+
+.subtitle {
+  color: #a0a0b0;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  
+  /* CORRECCIÓN: Alineación explícita */
+  text-align: left !important;
+  margin: 0;
+}
+
+/* =========================================
+   3. GRID DE TARJETAS
+   ========================================= */
+.definiciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+  gap: 3rem; 
+  margin-bottom: 4rem; 
+  position: relative;
+  
+  /* IMPORTANTE: Nivel 50 para estar por encima de la alerta roja */
+  z-index: 50; 
+  
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.def-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  position: relative;
+  overflow: visible; /* CRÍTICO para que salga el dropdown */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1; 
+}
+
+/* TRUCO CSS: Si la tarjeta tiene la lista abierta, sube al nivel 1000 */
+.def-card:has(.options-list) {
+  z-index: 1000 !important;
+}
+
+.def-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Colores Específicos */
+.card-campeon {
+  border-bottom: 4px solid var(--neon-gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.card-campeon:hover, .card-campeon:has(.options-list) {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.card-goleador {
+  border-bottom: 4px solid var(--neon-pink);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.card-goleador:hover, .card-goleador:has(.options-list) {
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+  border-color: rgba(255, 0, 255, 0.5);
+}
+
+.card-top-icon {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.icon-glow-gold { color: var(--neon-gold); filter: drop-shadow(0 0 8px var(--neon-gold)); }
+.icon-glow-pink { color: var(--neon-pink); filter: drop-shadow(0 0 8px var(--neon-pink)); }
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.card-desc {
+  color: #ccc;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   4. CUSTOM DROPDOWN (SELECT)
+   ========================================= */
+.custom-select-wrapper {
+  width: 100%;
+  position: relative;
+  margin-bottom: 2rem;
+  z-index: 10; 
+}
+
+.custom-select-trigger {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #334155;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.custom-select-trigger:hover {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 243, 255, 0.05);
+}
+
+.selected-value {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.escudo-small {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
+  flex-shrink: 0;
+}
+
+/* LISTA DESPLEGABLE */
+.options-list {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #0a0a0a;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 0 0 10px 10px;
+  z-index: 9999; 
+  box-shadow: 0 10px 50px rgba(0,0,0,1);
+  list-style: none;
+  padding: 0;
+}
+
+.options-list::-webkit-scrollbar { width: 6px; }
+.options-list::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 3px; }
+
+.search-input {
+  width: 100%;
+  padding: 15px;
+  background: #0f0f1a;
+  border: none;
+  border-bottom: 1px solid var(--neon-cyan);
+  color: white;
+  outline: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+}
+
+.option-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.2s;
+}
+
+.option-item:hover {
+  background: rgba(0, 243, 255, 0.15);
+  color: var(--neon-cyan);
+}
+
+/* =========================================
+   5. BOTONES DE ACCIÓN
+   ========================================= */
+.btn-neon {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn-gold {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid var(--neon-gold);
+  color: var(--neon-gold);
+}
+.btn-gold:hover:not(:disabled) {
+  background: var(--neon-gold); color: black;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+}
+
+.btn-pink {
+  background: rgba(255, 0, 255, 0.1);
+  border: 1px solid var(--neon-pink);
+  color: var(--neon-pink);
+}
+.btn-pink:hover:not(:disabled) {
+  background: var(--neon-pink); color: white;
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+}
+
+.btn-neon:disabled { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
+
+/* =========================================
+   6. ZONA DE ADVERTENCIA
+   ========================================= */
+.warning-zone {
+  margin: 2rem auto;
+  max-width: 900px;
+  padding: 1.5rem 2rem;
+  border: 1px solid #ff4444;
+  background: rgba(255, 68, 68, 0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 10; 
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
+}
+
+.warning-icon {
+  color: #ff4444;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 5px #ff0000);
+}
+
+.warning-text h3 {
+    margin: 0 0 0.5rem 0;
+    color: #ff4444;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.warning-text p {
+    margin: 0;
+    color: #ffaaaa;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* =========================================
+   7. RESULTADO FINAL (GANADOR)
+   ========================================= */
+.resultado-final { text-align: center; width: 100%; animation: fadeIn 0.5s ease; }
+
+.etiqueta-ganadora {
+  display: inline-block; padding: 0.5rem 1.5rem;
+  background: var(--neon-gold); color: black;
+  font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 1.5rem; clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+}
+
+.escudo-gigante {
+  width: 120px; height: 120px; object-fit: contain;
+  margin: 0 auto 1.5rem auto; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+}
+
+.nombre-ganador {
+  font-size: 2.5rem; font-weight: 800; color: white;
+  text-shadow: 0 0 15px rgba(255,255,255,0.5); margin-bottom: 1rem;
+}
+
+/* =========================================
+   8. MODAL CYBERPUNK (CONFIRMACIÓN)
+   ========================================= */
+.cyber-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000; 
+  animation: fadeInOverlay 0.3s ease;
+}
+
+.cyber-modal-content {
+  background: #0a0a12;
+  border: 1px solid var(--neon-cyan);
+  width: 90%;
+  max-width: 500px;
+  padding: 2.5rem;
+  border-radius: 0;
+  box-shadow: 0 0 40px rgba(0, 243, 255, 0.2);
+  position: relative;
+  text-align: center;
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  animation: scaleInModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-icon-wrapper {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.cyber-modal-content h3 {
+  color: white;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.cyber-modal-content p {
+  color: #a0a0b0;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.highlight-text {
+  color: var(--neon-gold);
+  font-weight: bold;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-modal {
+  padding: 12px 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  flex: 1;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+}
+.btn-cancel:hover {
+  background: #ff4444;
+  color: white;
+  box-shadow: 0 0 15px #ff4444;
+}
+
+.btn-confirm {
+  background: var(--neon-cyan);
+  color: black;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+}
+.btn-confirm:hover {
+  background: white;
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+}
+
+/* Animaciones */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleInModal {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* =========================================
+   9. MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+@media (max-width: 768px) {
+  .definiciones-container {
+    padding: 1rem;
+  }
+  
+  .titulo-neon {
+    font-size: 2rem; 
+  }
+
+  .definiciones-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .def-card {
+    padding: 1.5rem; 
+  }
+
+  .options-list {
+    max-height: 250px; 
+  }
+
+  .warning-zone {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+}

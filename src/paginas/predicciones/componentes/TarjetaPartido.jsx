@@ -101,7 +101,7 @@ const TarjetaPartido = ({
             onError={(e) => e.target.src = imgFallback} 
             alt="L" className="team-flag" 
           />
-          <span className="team-name">{partido.equipoLocal?.nombre || 'TBD'}</span>
+          <span className="team-name">{partido.equipoLocal?.nombre || 'PENDIENTE'}</span>
         </div>
 
         {/* CENTRO: INPUTS + ACCIÓN */}
@@ -158,7 +158,7 @@ const TarjetaPartido = ({
             onError={(e) => e.target.src = imgFallback} 
             alt="V" className="team-flag" 
           />
-          <span className="team-name">{partido.equipoVisitante?.nombre || 'TBD'}</span>
+          <span className="team-name">{partido.equipoVisitante?.nombre || 'PENDIENTE'}</span>
         </div>
       </div>
     </div>

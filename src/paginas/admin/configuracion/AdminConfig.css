@@ -1,0 +1,390 @@
+/* =========================================
+   1. AMBIENTE CYBERPUNK (BASE)
+   ========================================= */
+.config-container {
+    padding: 2rem;
+    min-height: 100vh;
+    color: #e2e8f0;
+    font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Efecto de "Scanlines" (Líneas de TV antigua) */
+.config-container::before {
+    content: " ";
+    display: block; position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 0; background-size: 100% 2px, 3px 100%; pointer-events: none;
+}
+
+/* Header Configuración (Centrado Mixto) */
+.config-header {
+    display: flex; 
+    align-items: flex-end; 
+    margin-bottom: 2.5rem; 
+    position: relative; 
+    z-index: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+/* El contenedor del texto ocupa todo el ancho */
+.config-header > div:first-child {
+    width: 100%;
+}
+
+/* TÍTULO: CENTRADO */
+.config-header .titulo-neon {
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    color: white; 
+    text-shadow: 0 0 5px #00f3ff, 0 0 10px #00f3ff; 
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    
+    text-align: center; /* CENTRADO */
+    width: 100%;
+}
+
+/* SUBTÍTULO: IZQUIERDA */
+.config-header .subtitle {
+    color: #a0a0b0;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    
+    text-align: left; /* IZQUIERDA */
+    margin: 0;
+    padding-left: 5px;
+}
+
+/* =========================================
+   2. GRID DE PANELES (LAYOUT)
+   ========================================= */
+.config-grid-layout {
+    display: grid;
+    /* Mínimo 450px por tarjeta, si cabe pone 2 columnas, sino 1 */
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+    position: relative; z-index: 1;
+}
+
+/* Tarjetas con efecto "Glass" */
+.config-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 2px solid #334155;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    /* Para que el datepicker no quede recortado si se sale un poco */
+    overflow: visible; 
+}
+
+.config-card:hover {
+    border-left-color: #bc13fe; /* Efecto Hover Morado */
+    box-shadow: 0 0 30px rgba(188, 19, 254, 0.15);
+}
+
+.card-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.5rem; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+}
+
+.card-icon { 
+    filter: drop-shadow(0 0 5px currentColor); 
+}
+
+.card-header h2 {
+    margin: 0; font-size: 1.4rem; letter-spacing: 2px; font-weight: 700;
+}
+
+/* =========================================
+   3. INPUTS NEÓN (GENERAL)
+   ========================================= */
+.neon-input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #334155;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; font-size: 1.1rem;
+    outline: none; transition: all 0.3s;
+    text-align: center;
+}
+
+.neon-input:focus {
+    border-color: #00f3ff;
+    background: rgba(0, 243, 255, 0.05);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+
+/* ELIMINAR FLECHAS (SPINNERS) EN INPUTS NUMÉRICOS */
+.neon-input::-webkit-outer-spin-button,
+.neon-input::-webkit-inner-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+.neon-input { -moz-appearance: textfield; }
+
+/* =========================================
+   4. ITEMS DE REGLAS (PUNTOS)
+   ========================================= */
+.config-item {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 15px; border-radius: 8px; margin-bottom: 12px;
+    border: 1px solid transparent; transition: 0.2s;
+}
+
+.config-item:hover {
+    border-color: rgba(188, 19, 254, 0.4);
+    background: rgba(188, 19, 254, 0.05);
+}
+
+.label-group { display: flex; flex-direction: column; }
+.config-label { font-weight: 700; font-size: 1rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+.config-key-mini { font-size: 0.7rem; color: #94a3b8; font-family: monospace; margin-top: 2px; }
+
+.input-group { display: flex; align-items: center; gap: 10px; }
+.input-group .neon-input { width: 80px; }
+
+.btn-save-mini {
+    background: rgba(188, 19, 254, 0.1); border: 1px solid #bc13fe;
+    color: #bc13fe; padding: 9px; border-radius: 4px; cursor: pointer;
+    transition: 0.2s; display: flex; align-items: center; justify-content: center;
+}
+.btn-save-mini:hover {
+    background: #bc13fe; color: white; box-shadow: 0 0 15px rgba(188, 19, 254, 0.6);
+}
+
+/* =========================================
+   5. ITEMS DE FASES (FECHAS)
+   ========================================= */
+.fase-item {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px; border-radius: 6px; margin-bottom: 15px;
+    transition: border-color 0.3s; position: relative;
+}
+
+.fase-item.active { border-left: 3px solid #10b981; }
+.fase-item.closed { border-left: 3px solid #ef4444; opacity: 0.8; }
+.fase-item.active:hover { box-shadow: 0 0 15px rgba(16, 185, 129, 0.1); }
+
+.fase-top {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+}
+.fase-title {
+    margin: 0; color: #fff; font-size: 1.1rem; font-weight: 800; text-transform: uppercase;
+}
+
+.badge-open { 
+    background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid #10b981; 
+    padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 5px;
+}
+.badge-closed { 
+    background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; 
+    padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 5px;
+}
+
+.date-control label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: #00f3ff; margin-bottom: 8px; 
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.input-with-save { display: flex; gap: 10px; width: 100%; align-items: center; }
+
+.btn-save-fase {
+    background: rgba(0, 243, 255, 0.1); border: 1px solid #00f3ff;
+    color: #00f3ff; padding: 0 16px; height: 42px; border-radius: 4px; cursor: pointer; transition: 0.3s;
+    display: flex; align-items: center; justify-content: center;
+}
+.btn-save-fase:hover {
+    background: #00f3ff; color: #000; box-shadow: 0 0 20px #00f3ff;
+}
+
+/* =========================================
+   6. ESTILOS DEL DATEPICKER (CUSTOM)
+   ========================================= */
+
+/* Wrapper para posicionar el icono SVG de fondo */
+.custom-datepicker-wrapper {
+    width: 100%;
+    position: relative;
+    display: block;
+}
+
+/* El input visible del datepicker */
+.neon-input.date-cyber-custom {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    /* Icono SVG de calendario color cyan inyectado vía CSS */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300f3ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    padding-right: 40px; 
+}
+
+/* --- OVERRIDES DE REACT-DATEPICKER --- */
+/* Contenedor Principal */
+.react-datepicker {
+    font-family: 'Rajdhani', sans-serif !important;
+    background-color: rgba(10, 10, 10, 0.95) !important;
+    border: 1px solid #00f3ff !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2) !important;
+    color: #e2e8f0 !important;
+}
+
+/* Header (Mes y Año) */
+.react-datepicker__header {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    border-bottom: 1px solid #334155 !important;
+    padding-top: 15px !important;
+}
+
+.react-datepicker__current-month {
+    color: #00f3ff !important;
+    text-transform: uppercase;
+    font-size: 1.1rem !important;
+    letter-spacing: 2px;
+}
+
+.react-datepicker__day-name { color: #94a3b8 !important; font-weight: 700; }
+
+/* Días */
+.react-datepicker__day {
+    color: #fff !important;
+    font-weight: 500;
+    border-radius: 4px !important;
+    transition: 0.2s;
+}
+
+.react-datepicker__day:hover {
+    background-color: rgba(0, 243, 255, 0.2) !important;
+    color: #00f3ff !important;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+}
+
+/* Día Seleccionado */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+    background-color: #00f3ff !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    box-shadow: 0 0 15px #00f3ff !important;
+}
+
+/* Día de Hoy */
+.react-datepicker__day--today {
+    border: 1px solid #bc13fe !important;
+    color: #bc13fe !important;
+}
+.react-datepicker__day--selected.react-datepicker__day--today {
+    background-color: #00f3ff !important;
+    color: #000 !important;
+    border: none !important;
+}
+
+/* Flechas de navegación */
+.react-datepicker__navigation-icon::before {
+    border-color: #00f3ff !important;
+    border-width: 2px 2px 0 0 !important;
+}
+
+/* =========================================
+   7. UTILIDADES (LOADER & TOAST)
+   ========================================= */
+.admin-loader {
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; background-color: #111827; color: #00f3ff;
+    font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; letter-spacing: 2px;
+}
+
+.toast-notification {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 1rem 1.5rem; border-radius: 6px;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; z-index: 3000; letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid;
+    animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-exito { border-color: #10b981; color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+.toast-error { border-color: #ef4444; color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+
+@keyframes slideInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================================
+   8. RESPONSIVE DESIGN (TODAS LAS RESOLUCIONES)
+   ========================================= */
+
+/* Tablets (< 1024px) */
+@media (max-width: 1024px) {
+    .config-grid-layout { 
+        /* Forzamos 1 sola columna para que las tarjetas tengan espacio */
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* Móviles (< 640px) */
+@media (max-width: 640px) {
+    .config-container { padding: 1rem; }
+    
+    .config-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .config-header .titulo-neon { font-size: 1.6rem; }
+    .config-header .subtitle { text-align: center; padding-left: 0; }
+    
+    /* REGLAS: Apilar verticalmente para más espacio */
+    .config-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .label-group, .input-group { width: 100%; }
+    
+    .input-group { justify-content: space-between; }
+    /* El input toma todo el ancho posible */
+    .input-group .neon-input { flex-grow: 1; text-align: left; padding-left: 15px; }
+
+    /* FASES: Apilar verticalmente */
+    .fase-top { flex-direction: column; align-items: flex-start; gap: 8px; }
+    
+    .input-with-save { 
+        flex-direction: column; 
+    }
+    
+    .custom-datepicker-wrapper { width: 100%; }
+    
+    .btn-save-fase {
+        width: 100%; /* Botón ancho para dedos */
+        padding: 12px; 
+        margin-top: 8px;
+    }
+
+    /* Toast ajustado a pantalla pequeña */
+    .toast-notification {
+        width: 90%; left: 5%; right: auto; bottom: 1.5rem; justify-content: center;
+    }
+}

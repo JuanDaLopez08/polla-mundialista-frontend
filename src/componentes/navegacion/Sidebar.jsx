@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { 
-  LayoutDashboard, Gamepad2, Globe, Trophy, Swords, BookOpen, LogOut, X, BrainCircuit, // Iconos Usuario
-  ClipboardList, Shirt, Gavel, Settings, Users // ✅ Iconos Admin (Users reintegrado)
+  LayoutDashboard, Gamepad2, Globe, Trophy, Swords, BookOpen, LogOut, X, BrainCircuit, 
+  ClipboardList, Shirt, Gavel, Settings, Users, Shuffle, User
 } from 'lucide-react';
 import { useAutenticacion } from '../../hooks/useAutenticacion';
 import trofeoImg from '../../recursos/imagenes/trofeo.png'; 
@@ -26,33 +26,26 @@ const Sidebar = ({ estaAbierto, alCerrar }) => {
     navigate('/login', { replace: true });
   };
 
-  // --- MENÚ JUGADOR ---
- const menuUsuario = [
-    { texto: 'Inicio', ruta: '/panel', icono: <LayoutDashboard size={22} /> }, // Tamaño 22 para que se vea mejor
+  const menuUsuario = [
+    { texto: 'Inicio', ruta: '/panel', icono: <LayoutDashboard size={22} /> },
     { texto: 'Mis Predicciones', ruta: '/predicciones', icono: <Gamepad2 size={22} /> },
     { texto: 'Mundial', ruta: '/mundial', icono: <Globe size={22} /> },
     { texto: 'Ranking', ruta: '/ranking', icono: <Trophy size={22} /> },
     { texto: 'Rivales', ruta: '/rivales', icono: <Swords size={22} /> },
     { texto: 'Zona Trivia', ruta: '/trivia', icono: <BrainCircuit size={22} /> },
     { texto: 'Reglas', ruta: '/reglas', icono: <BookOpen size={22} /> },
-];
+  ];
 
-  // --- MENÚ ADMIN (ESTRUCTURA FINAL) ---
+  // MENÚ ADMIN ACTUALIZADO SEGÚN NUEVA ESTRUCTURA
   const menuAdmin = [
-    { texto: 'Dashboard', ruta: '/admin', icono: <LayoutDashboard size={20} /> },
-    
-    // Gestión Diaria
-    { texto: 'Resultados y Partidos', ruta: '/admin/resultados', icono: <ClipboardList size={20} /> },
-    
-    // Base de Datos
-    { texto: 'Equipos y Jugadores', ruta: '/admin/equipos', icono: <Shirt size={20} /> },
-    { texto: 'Usuarios', ruta: '/admin/usuarios', icono: <Users size={20} /> }, // ✅ AQUÍ ESTÁ
-    
-    // Eventos
+    { texto: 'Inicio', ruta: '/admin/panel-control', icono: <LayoutDashboard size={20} /> },
+    { texto: 'Gestión Partidos', ruta: '/admin/gestion-partidos', icono: <ClipboardList size={20} /> },
+    { texto: 'Selecciones', ruta: '/admin/equipos', icono: <Shirt size={20} /> },
+    { texto: 'Jugadores', ruta: '/admin/jugadores', icono: <User size={20} /> },
+    { texto: 'Usuarios', ruta: '/admin/usuarios', icono: <Users size={20} /> },
+    { texto: 'Sorteo', ruta: '/admin/sorteo', icono: <Shuffle size={20} /> },
     { texto: 'Definiciones', ruta: '/admin/definiciones', icono: <Gavel size={20} /> },
-    
-    // Sistema
-    { texto: 'Configuración', ruta: '/admin/config', icono: <Settings size={20} /> },
+    { texto: 'Configuración', ruta: '/admin/configuracion', icono: <Settings size={20} /> },
   ];
 
   const itemsParaMostrar = esAdmin ? menuAdmin : menuUsuario;
@@ -74,7 +67,6 @@ const Sidebar = ({ estaAbierto, alCerrar }) => {
 
         <div className="sidebar-header">
           <div className="avatar-tech-container">
-            {/* Anillo de Poder: Rojo/Dorado si es Admin */}
             <div className={`avatar-tech-ring ${esAdmin ? 'admin-ring' : ''}`}></div>
             <div className="avatar-content">
               <div className={`avatar-slide ${mostrarCopa ? 'show-copa' : 'show-text'}`}>
@@ -94,6 +86,7 @@ const Sidebar = ({ estaAbierto, alCerrar }) => {
             <NavLink 
               key={item.ruta} 
               to={item.ruta}
+              end={esAdmin ? false : item.ruta === '/panel'} // Ajuste para rutas admin anidadas si fuera necesario
               onClick={alCerrar}
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
             >

@@ -1,0 +1,399 @@
+/* =========================================
+   1. ESTRUCTURA DEL PANEL
+   ========================================= */
+
+/* Header específico del Panel (CENTRADO HÍBRIDO) */
+.panel-header {
+    display: flex; 
+    align-items: flex-end; /* Alinea abajo */
+    margin-bottom: 40px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-bottom: 20px;
+    position: relative; /* CRÍTICO para el badge */
+    z-index: 1;
+}
+
+/* Contenedor de textos ocupa todo el ancho */
+.panel-header > div:first-child {
+    width: 100%;
+}
+
+/* TÍTULO (H1): CENTRADO */
+.panel-header h1, 
+.titulo-neon { 
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    color: white; 
+    text-shadow: 0 0 5px #00f3ff, 0 0 10px #00f3ff; 
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    
+    text-align: center; /* CENTRADO */
+    width: 100%;
+}
+
+/* SUBTÍTULO: IZQUIERDA */
+.panel-subtitle { 
+    color: #94a3b8; 
+    margin: 5px 0 0 0; 
+    font-size: 1rem; 
+    font-weight: 500; 
+    
+    text-align: left; /* IZQUIERDA */
+    padding-left: 5px;
+}
+
+/* BADGE: FLOTANTE A LA DERECHA */
+.fase-badge {
+    position: absolute;
+    right: 0;
+    bottom: 20px; /* Alineado con padding-bottom del header */
+    
+    background: rgba(0, 242, 255, 0.1); 
+    color: #00f2ff; 
+    border: 1px solid #00f2ff;
+    padding: 6px 16px; 
+    border-radius: 50px; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    font-weight: 800; 
+    font-size: 0.9rem; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); 
+    font-family: 'Rajdhani', sans-serif;
+    white-space: nowrap;
+}
+
+.panel-section { margin-bottom: 50px; }
+
+.section-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-bottom: 10px;
+}
+
+.section-title {
+    font-family: 'Rajdhani', sans-serif; 
+    font-weight: 800; 
+    font-size: 1.5rem;
+    text-transform: uppercase; 
+    color: #00f2ff; 
+    margin: 0; 
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+/* BOTÓN RANKING (Estilo Outline) */
+.btn-link-neon {
+    background: transparent; 
+    color: #94a3b8; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    font-size: 0.75rem; 
+    font-weight: 700;
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    text-transform: uppercase; 
+    transition: all 0.2s;
+}
+.btn-link-neon:hover { 
+    border-color: #00f2ff; 
+    color: #00f2ff; 
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); 
+}
+
+
+/* =========================================
+   2. KPI CARDS
+   ========================================= */
+.kpi-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 25px; 
+    margin-bottom: 50px; 
+}
+
+.kpi-card {
+    background: #0f172a; 
+    border: 1px solid #334155; 
+    border-radius: 16px; 
+    padding: 25px;
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+    position: relative; 
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+.kpi-card:hover { transform: translateY(-5px); }
+
+.kpi-bg-blur { 
+    position: absolute; top: 0; right: 0; 
+    width: 150px; height: 150px; 
+    filter: blur(60px); opacity: 0.2; 
+    pointer-events: none; 
+}
+
+.kpi-icon-glow { 
+    width: 60px; height: 60px; border-radius: 12px; 
+    display: flex; justify-content: center; align-items: center; 
+    z-index: 2; background: rgba(0,0,0,0.2); 
+    backdrop-filter: blur(5px); flex-shrink: 0; 
+}
+
+.kpi-content { 
+    z-index: 2; flex: 1; 
+    display: flex; flex-direction: column; justify-content: center; 
+    width: 100%; 
+}
+
+.kpi-content h3 { 
+    margin: 0 0 5px 0; font-size: 0.85rem; 
+    color: rgba(255,255,255,0.7); 
+    text-transform: uppercase; font-weight: 700; letter-spacing: 1px; 
+}
+
+.kpi-value { 
+    font-size: 3rem; font-weight: 900; color: white; 
+    font-family: 'Rajdhani', sans-serif; line-height: 1; 
+}
+
+/* Variantes de Color de KPI */
+.kpi-card-users { 
+    background: linear-gradient(135deg, #0f172a 0%, #2e1065 100%); 
+    border: 1px solid #7c3aed; 
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.1); 
+}
+.kpi-card-users .kpi-icon-glow { color: #a78bfa; border: 1px solid #8b5cf6; }
+.kpi-card-users .kpi-bg-blur { background: #7c3aed; }
+
+.kpi-card-progress { 
+    background: linear-gradient(135deg, #0f172a 0%, #083344 100%); 
+    border: 1px solid #06b6d4; 
+    box-shadow: 0 0 15px rgba(8, 145, 178, 0.1); 
+}
+.kpi-card-progress .kpi-icon-glow { color: #22d3ee; border: 1px solid #06b6d4; }
+.kpi-card-progress .kpi-bg-blur { background: #06b6d4; }
+
+.progress-bar-mini { 
+    width: 100%; 
+    height: 8px; 
+    background: rgba(255,255,255,0.1); 
+    border-radius: 10px; overflow: hidden; margin-top: 10px; 
+}
+.progress-fill { 
+    height: 100%; border-radius: 10px; 
+    background: #22d3ee; 
+    box-shadow: 0 0 10px #22d3ee; 
+}
+.kpi-detail { font-size: 0.75rem; color: #a5f3fc; margin-top: 5px; display: block; }
+
+
+/* =========================================
+   3. GRID CENTRAL (AGENDA Y PODIO)
+   ========================================= */
+.main-grid { 
+    display: grid; 
+    grid-template-columns: 1.8fr 1fr; 
+    gap: 30px; 
+    align-items: stretch; 
+}
+
+/* AGENDA - TICKET */
+.agenda-list { display: flex; flex-direction: column; gap: 15px; }
+
+.agenda-ticket {
+    background: #0f172a; 
+    border: 1px solid #334155; 
+    border-radius: 12px;
+    padding: 15px 20px; 
+    transition: all 0.2s ease;
+    display: flex; flex-direction: column; gap: 12px;
+}
+.agenda-ticket:hover { 
+    background: #1e293b; 
+    border-color: rgba(255,255,255,0.2); 
+    transform: translateX(5px); 
+}
+
+.agenda-ticket.urgente { border-left: 4px solid #f43f5e; }
+.agenda-ticket.proximo { border-left: 4px solid #fbbf24; }
+.agenda-ticket.futuro { border-left: 4px solid #00f2ff; }
+
+/* Header Ticket */
+.ticket-header { 
+    display: flex; justify-content: space-between; align-items: center; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; 
+}
+.ticket-status { 
+    display: flex; align-items: center; gap: 6px; 
+    font-size: 0.7rem; font-weight: 800; 
+    text-transform: uppercase; letter-spacing: 0.5px; 
+}
+.urgente .ticket-status { color: #f43f5e; }
+.proximo .ticket-status { color: #fbbf24; }
+.futuro .ticket-status { color: #00f2ff; }
+.ticket-date { font-size: 0.8rem; color: #94a3b8; font-weight: 500; }
+
+/* Body Ticket */
+.ticket-body { 
+    display: flex; justify-content: center; align-items: center; 
+    gap: 20px; padding-top: 5px; 
+}
+.team-mini { 
+    display: flex; align-items: center; gap: 10px; 
+    color: white; font-weight: 700; font-size: 1.1rem; flex: 1; 
+}
+.team-mini.right { justify-content: flex-end; text-align: right; }
+.team-mini.left { justify-content: flex-start; text-align: left; }
+
+.team-mini img { 
+    width: 35px !important; height: 35px !important; 
+    object-fit: contain; filter: drop-shadow(0 2px 4px black); flex-shrink: 0; 
+}
+
+.t-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+.vs { color: #64748b; font-size: 0.8rem; font-weight: 800; }
+
+.btn-cargar-mini {
+    background: rgba(244, 63, 94, 0.1); color: #f43f5e; border: 1px solid #f43f5e;
+    padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 0.65rem;
+    cursor: pointer; text-transform: uppercase;
+}
+.btn-cargar-mini:hover { background: #f43f5e; color: white; }
+
+
+/* =========================================
+   PODIO (LÍDERES)
+   ========================================= */
+.podio-section { 
+    display: flex; flex-direction: column; 
+    height: 91%; 
+}
+
+.podio-container {
+    background: #0f172a; 
+    border: 1px solid #fbbf24; 
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+    border-radius: 16px; 
+    flex: 1; 
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-end; 
+    gap: 15px; 
+    position: relative;
+    padding: 60px 20px 100px 20px; 
+}
+
+.podio-item { 
+    display: flex; flex-direction: column; align-items: center; 
+    width: 90px; 
+    text-align: center; position: relative; z-index: 1; 
+}
+
+.avatar {
+    width: 55px; height: 55px; border-radius: 50%; background: #1e293b;
+    border: 2px solid rgba(255,255,255,0.2); color: white; font-weight: bold;
+    display: flex; justify-content: center; align-items: center; margin-bottom: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5); font-size: 1.1rem;
+}
+.avatar.big { 
+    width: 80px; height: 80px; font-size: 1.5rem; 
+    border-color: #fbbf24; box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); 
+}
+
+.bar { width: 100%; border-radius: 6px 6px 0 0; position: relative; }
+.gold .bar { height: 180px; background: linear-gradient(to top, #d97706, #fbbf24); border-top: 3px solid #fef3c7; }
+.silver .bar { height: 130px; background: linear-gradient(to top, #475569, #94a3b8); border-top: 3px solid #e2e8f0; }
+.bronze .bar { height: 90px; background: linear-gradient(to top, #78350f, #d97706); border-top: 3px solid #fcd34d; }
+
+.medalla { position: absolute; bottom: 15px; width: 100%; text-align: center; font-weight: 900; font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: rgba(0,0,0,0.4); z-index: 2; }
+.crown { position: absolute; top: -45px; font-size: 2.5rem; animation: float 2s infinite ease-in-out; }
+
+.p-name { font-size: 0.95rem; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; margin-top: 10px; }
+.p-points { font-size: 0.85rem; color: #00f2ff; font-weight: 800; margin-bottom: 5px; }
+
+
+/* =========================================
+   4. CONFIGURACIÓN
+   ========================================= */
+.config-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+
+.card-punto.mini { padding: 15px; gap: 15px; }
+.card-punto.mini:hover { box-shadow: 0 0 15px currentColor; border-color: currentColor; }
+
+.mini-icon {
+    width: 40px; height: 40px; border-radius: 8px; display: flex; justify-content: center; align-items: center;
+    background: rgba(255,255,255,0.05); color: inherit;
+}
+.mini-data { display: flex; flex-direction: column; }
+.mini-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
+.mini-value { font-size: 1.3rem; color: white; font-weight: 800; font-family: 'Rajdhani', sans-serif; line-height: 1; }
+
+/* Colores de Reglas */
+.exacto, .futuro { border-color: #00f2ff; color: #00f2ff; }
+.ganador { border-color: #a855f7; color: #a855f7; }
+.invertido, .urgente { border-color: #f43f5e; color: #f43f5e; }
+.clasificado { border-color: #10b981; color: #10b981; }
+.palo { border-color: #ec4899; color: #ec4899; }
+.goleador { border-color: #f97316; color: #f97316; }
+.campeon, .proximo { border-color: #fbbf24; color: #fbbf24; }
+
+/* =========================================
+   5. RESPONSIVE (MÓVIL Y TABLET)
+   ========================================= */
+@media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+
+    /* REAJUSTE HEADER MÓVIL: Apilar verticalmente */
+    .panel-header { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 15px; 
+    }
+    
+    .panel-subtitle {
+        text-align: center;
+        padding-left: 0;
+    }
+    
+    /* El badge vuelve al flujo normal */
+    .fase-badge {
+        position: static;
+        margin-top: 5px;
+    }
+
+    .config-grid { 
+        grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    
+    .card-punto.mini {
+        padding: 10px;
+        flex-direction: column; text-align: center; gap: 8px;
+    }
+    .mini-data { align-items: center; }
+
+    .ticket-body { gap: 5px; }
+    .team-mini { font-size: 0.9rem; gap: 5px; }
+    .t-name { max-width: 80px; }
+
+    .podio-section { height: auto; }
+    .podio-container { height: 350px; }
+
+    .section-header {
+        flex-direction: column; align-items: flex-start; gap: 15px;
+    }
+}
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }

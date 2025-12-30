@@ -84,8 +84,8 @@ const Reglas = () => {
           <div className="card-punto palo">
             <div className="punto-icon"><Trophy size={32} /></div>
             <div className="punto-valor">+{pPalo} <span>PTS</span></div>
-            <h3 className="punto-titulo">EL PALO (SORPRESA)</h3>
-            <p className="punto-desc">Puntos extra por cada ronda que avance tu "Equipo Palo" elegido.</p>
+            <h3 className="punto-titulo">MEJOR PALO</h3>
+            <p className="punto-desc">Puntos extra por cada ronda que avance tu "Equipo Palo" sorteado.</p>
           </div>
 
           {/* Goleador (NUEVO) */}
@@ -101,7 +101,7 @@ const Reglas = () => {
             <div className="punto-icon"><Trophy size={32} /></div>
             <div className="punto-valor">+{pCampeon} <span>PTS</span></div>
             <h3 className="punto-titulo">ACERTAR CAMPEÓN</h3>
-            <p className="punto-desc">Bonus final si tu candidato levanta la copa. (También sirve como criterio de desempate).</p>
+            <p className="punto-desc">Puntos extra al final si acertaste el candidato a levantar la copa.</p>
           </div>
         </div>
       </section>

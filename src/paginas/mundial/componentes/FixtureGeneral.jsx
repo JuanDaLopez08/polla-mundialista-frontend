@@ -202,7 +202,7 @@ const FixtureGeneral = () => {
                 {partidosPorFecha[fecha].map(p => (
                 <div key={p.id} className="match-card">
                     <div className="match-header-small">
-                        {p.estadio?.ciudad} • {new Date(p.fechaPartido).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                        {p.estadio?.ciudad} • {p.estadio?.nombre} • {new Date(p.fechaPartido).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                     </div>
                     <div className="match-body">
                     <div className="team-col">
